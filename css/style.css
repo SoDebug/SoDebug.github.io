@@ -474,6 +474,10 @@ button {
   transition-property: color, background, box-shadow, border-color, transform;
 }
 .btn:hover {
+  transform: scaleX(1.06) scaleY(1.06);
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
+.btn:hover {
   color: var(--background-color-1);
   background: var(--primary-color);
 }
@@ -1922,6 +1926,81 @@ pre .javascript .function {
 .post-toc-wrap .post-toc .nav .active-current > a .nav-text {
   color: var(--primary-color);
 }
+.gitalk-comment-container {
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
+  transition-timing-function: ease, ease, ease, ease, ease, ease;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-property: color, background, box-shadow, border-color, color, background;
+}
+.gitalk-comment-container .gt-container .gt-btn {
+  background-color: var(--primary-color-light-1);
+  border: 1px solid var(--primary-color-light-1);
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
+  transition-timing-function: ease, ease, ease, ease, ease, ease;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-property: color, background, box-shadow, border-color, color, background;
+}
+.gitalk-comment-container .gt-container .gt-initing-text {
+  color: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-meta .gt-counts {
+  color: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-meta .gt-counts a {
+  color: var(--primary-color);
+}
+.gitalk-comment-container .gt-container .gt-meta .gt-user .gt-user-name {
+  color: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-meta .gt-user svg path {
+  fill: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-meta .gt-popup {
+  top: 2.6rem;
+  background: var(--background-color-2);
+  border: 1px solid var(--border-color);
+}
+.gitalk-comment-container .gt-container .gt-header .gt-header-comment textarea {
+  color: var(--text-color-3);
+  background-color: var(--background-color-2);
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
+  transition-timing-function: ease, ease, ease, ease, ease, ease;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-property: color, background, box-shadow, border-color, color, background;
+}
+.gitalk-comment-container .gt-container .gt-header .gt-header-comment .gt-header-controls .gt-btn-preview {
+  color: #fff;
+  background-color: var(--primary-color-light-1);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comments-null {
+  color: var(--text-color-4);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content {
+  background-color: var(--background-color-2);
+  transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
+  transition-timing-function: ease, ease, ease, ease, ease, ease;
+  transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
+  transition-property: color, background, box-shadow, border-color, color, background;
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content:hover {
+  box-shadow: none;
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content .gt-comment-body p,
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content .gt-comment-body li {
+  color: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content .gt-comment-body .email-fragment {
+  color: var(--text-color-3);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content .notranslate {
+  background-color: var(--background-color-3);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content .notranslate code {
+  color: var(--text-color-2);
+}
+.gitalk-comment-container .gt-container .gt-comments .gt-comment-content pre {
+  background-color: var(--background-color-3);
+}
 .comments-container {
   display: inline-block;
   width: 100%;
@@ -1963,6 +2042,9 @@ pre .javascript .function {
   padding-top: 2px;
   background: var(--background-color-1);
   box-shadow: 2px 2px 5px var(--shadow-color);
+}
+.header-wrapper:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
 }
 .header-wrapper .header-content {
   position: relative;
@@ -2251,6 +2333,10 @@ pre .javascript .function {
 .post-tools-container .tools-list li:last-child {
   margin-bottom: 0;
 }
+.post-tools-container .tools-list li:hover {
+  transform: scaleX(1.06) scaleY(1.06);
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 .post-tools-container .tools-list li.toggle-show-toc {
   display: none;
 }
@@ -2335,6 +2421,25 @@ pre .javascript .function {
 .side-tools-container .side-tools-list.show {
   transform: translateX(0);
   opacity: 1;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top {
+  display: none;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top.show {
+  display: flex;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top:hover .percent {
+  display: none;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top:hover .arrow-up {
+  display: flex;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top .arrow-up {
+  display: none;
+}
+.side-tools-container .exposed-tools-list .tool-scroll-to-top .percent {
+  display: flex;
+  font-size: 1rem;
 }
 .archive-list-container .archive-item {
   margin-bottom: 38px;
@@ -2457,6 +2562,9 @@ pre .javascript .function {
     margin-bottom: 1.2rem;
   }
 }
+.page-template-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .page-template-container {
     padding: 1.6rem;
@@ -2487,7 +2595,6 @@ pre .javascript .function {
   height: 100vh;
   overflow: hidden;
   background: url("/images/bg.svg") center center/cover no-repeat;
-  background-position-y: 70px;
 }
 @media (max-width: 800px) {
   .first-screen-container {
@@ -2581,6 +2688,9 @@ pre .javascript .function {
   background: var(--content-background-color);
   border-radius: 0.4rem;
   box-shadow: 2px 2px 5px var(--shadow-color);
+}
+.category-list-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
 }
 @media (max-width: 800px) {
   .category-list-container {
@@ -2757,6 +2867,10 @@ pre .javascript .function {
     margin-bottom: 22.8px;
   }
 }
+.home-content-container .home-article-list .home-article-item:hover {
+  transform: scaleX(1.015) scaleY(1.015);
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .home-content-container .home-article-list .home-article-item {
     padding: 22.400000000000002px;
@@ -2871,6 +2985,9 @@ pre .javascript .function {
     margin-bottom: 1.2rem;
   }
 }
+.archive-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .archive-container {
     padding: 1.6rem;
@@ -2926,6 +3043,9 @@ pre .javascript .function {
   .post-page-container .article-content-container {
     margin-bottom: 1.2rem;
   }
+}
+.post-page-container .article-content-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
 }
 @media (max-width: 800px) {
   .post-page-container .article-content-container {
@@ -3080,6 +3200,11 @@ pre .javascript .function {
   transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
   transition-property: color, background, box-shadow, border-color, transform;
 }
+.post-page-container .article-content-container .article-nav .article-prev:hover,
+.post-page-container .article-content-container .article-nav .article-next:hover {
+  transform: scaleX(1.03) scaleY(1.03);
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .post-page-container .article-content-container .article-nav .article-prev,
   .post-page-container .article-content-container .article-nav .article-next {
@@ -3189,6 +3314,9 @@ pre .javascript .function {
     margin-bottom: 1.2rem;
   }
 }
+.category-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .category-container {
     padding: 1.6rem;
@@ -3240,6 +3368,9 @@ pre .javascript .function {
     margin-bottom: 1.2rem;
   }
 }
+.tag-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
+}
 @media (max-width: 800px) {
   .tag-container {
     padding: 1.6rem;
@@ -3279,6 +3410,9 @@ pre .javascript .function {
   background: var(--content-background-color);
   border-radius: 0.4rem;
   box-shadow: 2px 2px 5px var(--shadow-color);
+}
+.tagcloud-container:hover {
+  box-shadow: 2px 2px 8px var(--shadow-hover-color);
 }
 @media (max-width: 800px) {
   .tagcloud-container {
