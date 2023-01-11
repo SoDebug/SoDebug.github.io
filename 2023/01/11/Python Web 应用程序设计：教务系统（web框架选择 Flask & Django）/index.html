@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="杂言碎语">
+    <meta name="author" content="Li Jinchuan">
+    
+    <title>
+        
+            Python Web 应用程序设计：教务系统（web框架选择 Flask &amp; Django） |
+        
+        SoDebug
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"sodebug.github.io","root":"/","language":"zh","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/logo.png","avatar":"/images/logo.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"可就是喜欢上了，不知从何而起，也没有附加的条件。","font_color":null,"hitokoto":true},"scroll":{"progress_bar":false,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"placeholder":null},"gitalk":{"github_id":"SoDebug","github_admins":null,"repository":"SoDebug.github.io","client_id":"f2e247efde2e29a115ee","client_secret":"d0ca35c636a29ff5be35980f7a721f3825e8427e"},"twikoo":{"env_id":null,"region":null,"version":"1.6.7"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":false},"version":"3.6.0"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               SoDebug
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Python Web 应用程序设计：教务系统（web框架选择 Flask &amp; Django）</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Li Jinchuan</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-01-11 12:15:45</span>
+        <span class="mobile">2023-01-11 12:15</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-01-11 21:54:00</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Python/">Python</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F/">教务系统</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/web/">web</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Flask/">Flask</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Django/">Django</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>905 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>3 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <blockquote>
+<p>随着大四上所有的课程接近尾声，毕业设计也开始逐渐拉上序幕，我的毕业设计是基于Python的教务系统设计，本篇博文围绕此进行展开</p>
+<p>本篇博文创作中遇到了很多困难，感谢 <a class="link"   target="_blank" rel="noopener" href="https://openai.com/" >OpenAI Chat<i class="fas fa-external-link-alt"></i></a> Chat 的帮助</p>
+</blockquote>
+<h2 id="一、Flask与Django分别是什么？"><a href="#一、Flask与Django分别是什么？" class="headerlink" title="一、Flask与Django分别是什么？"></a>一、Flask与Django分别是什么？</h2><h3 id="1-1-Flask-是什么？"><a href="#1-1-Flask-是什么？" class="headerlink" title="1.1 Flask 是什么？"></a>1.1 Flask 是什么？</h3><p><code>Flask</code>以<code>Python</code>为逻辑语言，以 <code>Werkzeug WSGI Tool Package</code>、 <code>Jinja2 Engine</code>作为核心引擎，用于构建<code>Web Application Framework</code>应用程序的轻量级框架。</p>
+<h3 id="1-2-Django-是什么？"><a href="#1-2-Django-是什么？" class="headerlink" title="1.2 Django 是什么？"></a>1.2 Django 是什么？</h3><p><code>Django</code> 以<code>Python</code>为逻辑语言，以 Model-View-Controller (MVC) 架构为核心构架，主攻用于快速开发安全、可靠和可维护的 <code>Web Application Framework</code>重量级框架。</p>
+<h2 id="二、-相对于Django而言，Flask-的优点是什么？"><a href="#二、-相对于Django而言，Flask-的优点是什么？" class="headerlink" title="二、 相对于Django而言，Flask 的优点是什么？"></a>二、 相对于Django而言，Flask 的优点是什么？</h2><h3 id="2-1-Flask更简单易用"><a href="#2-1-Flask更简单易用" class="headerlink" title="2.1 Flask更简单易用"></a>2.1 Flask更简单易用</h3><blockquote>
+<p> Flask 框架的核心部分非常简单，易于理解和使用，适合入门和小型项目。</p>
+</blockquote>
+<p>Flask 框架的核心部分非常简单，主要是因为它没有很多内置功能，它只是一个简单的 web 框架，主要提供了如下功能：</p>
+<ul>
+<li>路由系统：用于定义视图函数的 URL 路径。</li>
+<li>模板系统：用于渲染 HTML 模板。</li>
+<li>错误处理：用于处理应用程序中出现的错误。</li>
+<li>请求对象和响应对象：用于处理 HTTP 请求和响应。</li>
+</ul>
+<p>这些功能都是基本的 web 框架功能，Flask的设计目的就是让这些功能尽可能简单，易于理解和使用。</p>
+<p>与之对比，Django是一个功能更加丰富的框架，它包括了很多内置的功能，如：</p>
+<ul>
+<li>管理数据库的ORM系统</li>
+<li>表单验证和身份验证</li>
+<li>管理后台</li>
+<li>基于类的视图</li>
+<li>……</li>
+</ul>
+<h3 id="2-2-Flask灵活性更高"><a href="#2-2-Flask灵活性更高" class="headerlink" title="2.2 Flask灵活性更高"></a>2.2 Flask灵活性更高</h3><blockquote>
+<p>Flask 提供了很多扩展，你可以根据需要选择性地使用，没有多余的功能限制。（社区提供）</p>
+</blockquote>
+<p>Flask灵活性高，主要是因为它设计成模块化，核心部分非常简单，大部分功能是通过扩展来实现的。这样一来，开发者可以根据自己项目的需求来选择使用哪些扩展。</p>
+<p>Flask扩展可以为应用程序增加很多实用的功能，如：</p>
+<ul>
+<li>管理数据库的ORM系统</li>
+<li>表单验证和身份验证</li>
+<li>管理后台</li>
+<li>电子邮件</li>
+<li>图像处理</li>
+<li>……</li>
+</ul>
+<p>可以根据项目需求来选择使用哪些扩展，没有多余的功能限制你。</p>
+<p>而与之相比，Django是一个功能更加丰富的框架,它自带很多功能，可能会因为不需要而造成学习负担或者资源浪费。</p>
+<p>这种灵活性能够使开发者更灵活地选择所需要的功能，不会因为不需要而增加学习成本和资源浪费。</p>
+<h3 id="2-3-Flask开发周期更短"><a href="#2-3-Flask开发周期更短" class="headerlink" title="2.3 Flask开发周期更短"></a>2.3 Flask开发周期更短</h3><blockquote>
+<p>开发周期短：由于 Flask 框架的简单性，可以让开发人员更快地完成项目。</p>
+</blockquote>
+<h3 id="三、-相对于Django而言，Flask-的缺点是什么？"><a href="#三、-相对于Django而言，Flask-的缺点是什么？" class="headerlink" title="三、 相对于Django而言，Flask 的缺点是什么？"></a>三、 相对于Django而言，Flask 的缺点是什么？</h3><h3 id="3-1-Flask功能有限、扩展性差、不适合做大项目"><a href="#3-1-Flask功能有限、扩展性差、不适合做大项目" class="headerlink" title="3.1 Flask功能有限、扩展性差、不适合做大项目"></a>3.1 Flask功能有限、扩展性差、不适合做大项目</h3><blockquote>
+<p>Flask 是一个轻量级框架，其内置功能有限，需要使用第三方库才能完成一些常见功能</p>
+</blockquote>
+<p>直白的说，Flask的核心框架简单的优点也是它的缺点。例如管理数据库,表单验证等,如果需要这些功能需要手动添加。</p>
+<h2 id="四、最终选择"><a href="#四、最终选择" class="headerlink" title="四、最终选择"></a>四、最终选择</h2><p>大致考虑一些，Flask框架更适合做这种非长期维护型项目。主要是不需要考虑安全性、稳定性等维护支持。</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Python/">#Python</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E6%95%99%E5%8A%A1%E7%B3%BB%E7%BB%9F/">#教务系统</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/web/">#web</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Flask/">#Flask</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Django/">#Django</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/08/%E5%88%9D%E8%AF%86Hexo/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">初识Hexo</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;Comments
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: 'f2e247efde2e29a115ee',
+                clientSecret: 'd0ca35c636a29ff5be35980f7a721f3825e8427e',
+                repo: 'SoDebug.github.io',
+                owner: 'SoDebug',
+                admin: 'SoDebug',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Flask%E4%B8%8EDjango%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">一、Flask与Django分别是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Flask-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">1.1 Flask 是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Django-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">1.2 Django 是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81-%E7%9B%B8%E5%AF%B9%E4%BA%8EDjango%E8%80%8C%E8%A8%80%EF%BC%8CFlask-%E7%9A%84%E4%BC%98%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">二、 相对于Django而言，Flask 的优点是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Flask%E6%9B%B4%E7%AE%80%E5%8D%95%E6%98%93%E7%94%A8"><span class="nav-text">2.1 Flask更简单易用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-Flask%E7%81%B5%E6%B4%BB%E6%80%A7%E6%9B%B4%E9%AB%98"><span class="nav-text">2.2 Flask灵活性更高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-Flask%E5%BC%80%E5%8F%91%E5%91%A8%E6%9C%9F%E6%9B%B4%E7%9F%AD"><span class="nav-text">2.3 Flask开发周期更短</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81-%E7%9B%B8%E5%AF%B9%E4%BA%8EDjango%E8%80%8C%E8%A8%80%EF%BC%8CFlask-%E7%9A%84%E7%BC%BA%E7%82%B9%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-text">三、 相对于Django而言，Flask 的缺点是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Flask%E5%8A%9F%E8%83%BD%E6%9C%89%E9%99%90%E3%80%81%E6%89%A9%E5%B1%95%E6%80%A7%E5%B7%AE%E3%80%81%E4%B8%8D%E9%80%82%E5%90%88%E5%81%9A%E5%A4%A7%E9%A1%B9%E7%9B%AE"><span class="nav-text">3.1 Flask功能有限、扩展性差、不适合做大项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%9C%80%E7%BB%88%E9%80%89%E6%8B%A9"><span class="nav-text">四、最终选择</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Li Jinchuan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.0</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
