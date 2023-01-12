@@ -201,12 +201,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>258 Words</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.8k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>7 Mins</span>
         </span>
     
     
@@ -224,10 +224,10 @@
             <div class="article-content keep-markdown-body">
                 
 
-                <h2 id="一、如何理解Flask应用？"><a href="#一、如何理解Flask应用？" class="headerlink" title="一、如何理解Flask应用？"></a>一、如何理解Flask应用？</h2><blockquote>
+                <blockquote>
 <p>这里以最简单的Flask应用为例，对其进行逐步分析</p>
 </blockquote>
-<h3 id="1-1-分析最简单的Flask应用"><a href="#1-1-分析最简单的Flask应用" class="headerlink" title="1.1 分析最简单的Flask应用"></a>1.1 分析最简单的Flask应用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():  <span class="comment"># put application&#x27;s code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
+<h2 id="一、-分析最简单的Flask应用"><a href="#一、-分析最简单的Flask应用" class="headerlink" title="一、 分析最简单的Flask应用"></a>一、 分析最简单的Flask应用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask </span><br><span class="line">app = Flask(__name__)</span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello_world</span>():  <span class="comment"># put application&#x27;s code here</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure>
 
 <p> 按照Official Docs的指引，上述代码意思如下：</p>
 <ul>
@@ -236,6 +236,122 @@
 <li><code>@app.route(&#39;/&#39;)</code>：<code>route()</code>是装饰器，用于告知<em><strong>Flask触发函数的URL</strong></em>。</li>
 <li><code>return &quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot; </code>：函数返回的内容是在用户浏览器中显示的信息。默认的内容类型是 HTML ，因此字 符串中的 HTML 会被浏览器渲染。</li>
 </ul>
+<h2 id="二、-路由（route）"><a href="#二、-路由（route）" class="headerlink" title="二、  路由（route）"></a>二、  路由（route）</h2><blockquote>
+<p>一般使用 <a target="_blank" rel="noopener" href="https://dormousehole.readthedocs.io/en/latest/api.html#flask.Flask.route"><code>route()</code></a> 装饰器来把函数绑定到 URL</p>
+</blockquote>
+<h3 id="2-1-静态URL路由（route）分析"><a href="#2-1-静态URL路由（route）分析" class="headerlink" title="2.1 静态URL路由（route）分析"></a>2.1 静态URL路由（route）分析</h3><p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello, World&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>当访问<code>example/hello</code>时，网页会显示<code>Hello, World</code></p>
+<p>![1.2.1_1](.&#x2F;..&#x2F;images&#x2F;Python Web 应用程序设计：快速上手Flask（1）&#x2F;1.2.1_1.png)</p>
+<p>即是路由函数中的“&#x2F;hello”是一个触发字段，当检测到该字段就会返回该函数（这里是<code>def hello()</code>）中返回的html内容(这里是<code>&#39;Hello, World&#39;</code>)</p>
+<h3 id="2-2-动态URL路由（route）分析"><a href="#2-2-动态URL路由（route）分析" class="headerlink" title="2.2 动态URL路由（route）分析"></a>2.2 动态URL路由（route）分析</h3><blockquote>
+<p>通过把 URL 的一部分标记为 <code>&lt;variable_name&gt;</code> 就可以在 URL 中添加变量。标记的 部分会作为关键字参数传递给函数。</p>
+</blockquote>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> markupsafe <span class="keyword">import</span> escape</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/user/&lt;username&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show_user_profile</span>(<span class="params">username</span>):</span><br><span class="line">    <span class="comment"># show the user profile for that user</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;User <span class="subst">&#123;username&#125;</span>&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>当访问<code>example/user/</code>+任意字符时，网页所返回的显示也是<code>User </code>+ 任意字符</p>
+<p>![1.2.2_1](.&#x2F;..&#x2F;images&#x2F;Python Web 应用程序设计：快速上手Flask（1）&#x2F;1.2.2_1.png)</p>
+<h3 id="2-3-动态URL路由（route）之变量转换规则"><a href="#2-3-动态URL路由（route）之变量转换规则" class="headerlink" title="2.3 动态URL路由（route）之变量转换规则"></a>2.3 动态URL路由（route）之变量转换规则</h3><blockquote>
+<p>通过使用 <code>&lt;converter:variable_name&gt;</code> ，可以 选择性的加上一个转换器，为变量指定规则。</p>
+</blockquote>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/post/&lt;int:post_id&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">show_post</span>(<span class="params">post_id</span>):</span><br><span class="line">    <span class="comment"># show the post with the given id, the id is an integer</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;Post <span class="subst">&#123;post_id&#125;</span>&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>只有当访问<code>example/post/</code>+整型（int）数字时，网页才会接受，并显示<code>Post</code> + 输入的数字</p>
+<p>![image-20230112123516620](.&#x2F;..&#x2F;images&#x2F;Python Web 应用程序设计：快速上手Flask（1）&#x2F;image-20230112123516620.png)</p>
+<p>![image-20230112123536016](.&#x2F;..&#x2F;images&#x2F;Python Web 应用程序设计：快速上手Flask（1）&#x2F;image-20230112123536016.png)</p>
+<table>
+<thead>
+<tr>
+<th align="center">转换类型</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">string</td>
+<td align="center">(缺省值&#x2F;<code>default value</code>)接受任何不包含斜杠的文本</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">接受正整数</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">接受正浮点数</td>
+</tr>
+<tr>
+<td align="center">path</td>
+<td align="center">类似<code>string</code>，但是可以包含斜杠</td>
+</tr>
+<tr>
+<td align="center">uuid</td>
+<td align="center">接受uuid字符串</td>
+</tr>
+</tbody></table>
+<p>注：</p>
+<p>uuid：通用唯一识别码，是用于计算机体系中以识别信息的一个128位标识符。</p>
+<p>缺省：即是默认值，早年由于翻译原因读作缺省。</p>
+<h3 id="2-4-URL路由（route）之重定向行为与URL的唯一性"><a href="#2-4-URL路由（route）之重定向行为与URL的唯一性" class="headerlink" title="2.4 URL路由（route）之重定向行为与URL的唯一性"></a>2.4 URL路由（route）之重定向行为与URL的唯一性</h3><blockquote>
+<p>Flask对于某些URL会进行重定向，指向文件夹、文件</p>
+</blockquote>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/projects/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">projects</span>():</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;The project page&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>projects()</code> 的 URL 是中规中矩的，尾部有一个斜杠，看起来就如同一个文件夹：当访问一个没有斜杠结尾的 URL （ <code>/projects</code> ）时 Flask 会自动进行重 定向，帮您在尾部加上一个斜杠（ <code>/projects/</code> ）</p>
+</li>
+<li><p><code>about()</code> 的 URL 没有尾部斜杠，因此其行为表现与一个文件类似：如果访问这 个 URL 时添加了尾部斜杠（<code>/about/</code> ）就会得到一个 404 “未找到” 错 误。这样可以保持 URL 唯一，并有助于搜索引擎重复索引同一页面。</p>
+</li>
+</ul>
+<h3 id="2-5-URL构建函数：url-for"><a href="#2-5-URL构建函数：url-for" class="headerlink" title="2.5 URL构建函数：url_for()"></a>2.5 URL构建函数：url_for()</h3><blockquote>
+<p><a target="_blank" rel="noopener" href="https://dormousehole.readthedocs.io/en/latest/api.html#flask.url_for"><code>url_for()</code></a> 函数用于构建指定函数的 URL。它把函数名称作为第一个 参数。它可以接受任意个关键字参数，每个关键字参数对应 URL 中的变量。未知变量 将添加到 URL 中作为查询参数。</p>
+</blockquote>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> app.test_request_context():</span><br><span class="line">    <span class="built_in">print</span>(url_for(<span class="string">&#x27;index&#x27;</span>)) </span><br><span class="line">    <span class="comment"># [output]:/</span></span><br><span class="line">    <span class="built_in">print</span>(url_for(<span class="string">&#x27;login&#x27;</span>)) </span><br><span class="line">    <span class="comment"># [output]:/login</span></span><br><span class="line">    <span class="built_in">print</span>(url_for(<span class="string">&#x27;login&#x27;</span>, <span class="built_in">next</span>=<span class="string">&#x27;/&#x27;</span>)) </span><br><span class="line">    <span class="comment"># [output]:/login?next/</span></span><br><span class="line">    <span class="built_in">print</span>(url_for(<span class="string">&#x27;profile&#x27;</span>, username=<span class="string">&#x27;John Doe&#x27;</span>)) </span><br><span class="line">    <span class="comment"># [output]:/user/John%20Doe</span></span><br></pre></td></tr></table></figure>
+
+<p>从执行结果上来看，就是字面意思，构建URL。</p>
+<h3 id="2-6-路由（route）HTTP-方法"><a href="#2-6-路由（route）HTTP-方法" class="headerlink" title="2.6 路由（route）HTTP 方法"></a>2.6 路由（route）HTTP 方法</h3><blockquote>
+<p>Web 应用使用不同的 HTTP 方法处理 URL 。 缺省情况下，一个路由只回应 <code>GET</code> 请求。</p>
+</blockquote>
+<p>可以使用 <a target="_blank" rel="noopener" href="https://dormousehole.readthedocs.io/en/latest/api.html#flask.Flask.route"><code>route()</code></a> 装饰器的 <code>methods</code> 参数来处理不同的 HTTP 方法。</p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> request</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/login&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>, <span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">login</span>():</span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">&#x27;POST&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> do_the_login()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> show_the_login_form()</span><br></pre></td></tr></table></figure>
+
+<p>这段代码是一个 Flask 应用程序中的一个视图函数, 它定义了一个路由 ‘&#x2F;login’ ，并且可以接受 GET 和 POST 方法的请求。</p>
+<ul>
+<li><p>当请求的方法是 “POST” 时，将会调用 do_the_login() 函数，这个函数可能会处理用户的登录请求,如验证用户名和密码等.</p>
+</li>
+<li><p>当请求的方法是 “GET” 时，将会调用 show_the_login_form() 函数，这个函数可能会返回一个登录表单的 HTML 页面。</p>
+</li>
+</ul>
+<p>概括来说：当用户访问 ‘&#x2F;login’ 页面的时候，如果是 GET 方法将会返回登录表单页面，而如果是 POST 方法将会进行登录操作。</p>
+<h3 id="2-7-路由（route）静态文件"><a href="#2-7-路由（route）静态文件" class="headerlink" title="2.7 路由（route）静态文件"></a>2.7 路由（route）静态文件</h3><blockquote>
+<p>动态的 web 应用也需要静态文件，一般是 CSS 和 JavaScript 文件。理想情况下,服务器已经配置好了为用户提供静态文件的服务。但是在开发过程中， Flask 也能做好 这项工作。只要在包或模块旁边创建一个名为 <code>static</code> 的文件夹就行。</p>
+</blockquote>
+<p>使用特定的 <code>&#39;static&#39;</code> 端点就可以生成相应的 URL。</p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url_for(<span class="string">&#x27;static&#x27;</span>, filename=<span class="string">&#x27;style.css&#x27;</span>)</span><br><span class="line"><span class="comment"># style.css所在位置：static/style.css</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-8-路由（route）渲染模板"><a href="#2-8-路由（route）渲染模板" class="headerlink" title="2.8 路由（route）渲染模板"></a>2.8 路由（route）渲染模板</h3><blockquote>
+<p>在 Python 内部生成 HTML 相当笨拙。因为必须自己负责 HTML 转义， 以确保应用的安全。因此， Flask 自动为开发者配置 <a class="link"   target="_blank" rel="noopener" href="https://palletsprojects.com/p/jinja/" >Jinja2<i class="fas fa-external-link-alt"></i></a> 模板引擎。</p>
+</blockquote>
+<p>使用 <a target="_blank" rel="noopener" href="https://dormousehole.readthedocs.io/en/latest/api.html#flask.render_template"><code>render_template()</code></a> 方法可以渲染模板，只要开发者提供模板名称和需要作为参数传递给模板的变量就行了。</p>
+<p>代码示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> render_template</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello/&#x27;</span></span>)</span></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/hello/&lt;name&gt;&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">hello</span>(<span class="params">name=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&#x27;hello.html&#x27;</span>, name=name)</span><br></pre></td></tr></table></figure>
+
+<p>Flask 会在 <code>templates</code> 文件夹内寻找模板。</p>
+<p>此代码中的文件结构大致如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/app.py</span><br><span class="line">/templates</span><br><span class="line">    /hello.html</span><br></pre></td></tr></table></figure>
+
+<p>当模板代码如下时（hello.html）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello from Flask<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">&#123;% if name %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello &#123;&#123; name &#125;&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">&#123;% else %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>当访问<code>example/hello/</code>+任意字符时（图片里是templates），网页显示结果是：<code>Hello templates!</code></p>
+<p>![image-20230112145522169](.&#x2F;..&#x2F;images&#x2F;Python Web 应用程序设计：快速上手Flask（1）&#x2F;image-20230112145522169.png)</p>
 
             </div>
 
@@ -343,7 +459,7 @@
             <div class="toc-content-container">
                 <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3Flask%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="nav-text">一、如何理解Flask应用？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E5%88%86%E6%9E%90%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84Flask%E5%BA%94%E7%94%A8"><span class="nav-text">1.1 分析最简单的Flask应用</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81-%E5%88%86%E6%9E%90%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84Flask%E5%BA%94%E7%94%A8"><span class="nav-text">一、 分析最简单的Flask应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81-%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89"><span class="nav-text">二、  路由（route）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%9D%99%E6%80%81URL%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E5%88%86%E6%9E%90"><span class="nav-text">2.1 静态URL路由（route）分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%8A%A8%E6%80%81URL%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E5%88%86%E6%9E%90"><span class="nav-text">2.2 动态URL路由（route）分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E5%8A%A8%E6%80%81URL%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E4%B9%8B%E5%8F%98%E9%87%8F%E8%BD%AC%E6%8D%A2%E8%A7%84%E5%88%99"><span class="nav-text">2.3 动态URL路由（route）之变量转换规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-URL%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E4%B9%8B%E9%87%8D%E5%AE%9A%E5%90%91%E8%A1%8C%E4%B8%BA%E4%B8%8EURL%E7%9A%84%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-text">2.4 URL路由（route）之重定向行为与URL的唯一性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-URL%E6%9E%84%E5%BB%BA%E5%87%BD%E6%95%B0%EF%BC%9Aurl-for"><span class="nav-text">2.5 URL构建函数：url_for()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89HTTP-%E6%96%B9%E6%B3%95"><span class="nav-text">2.6 路由（route）HTTP 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-7-%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6"><span class="nav-text">2.7 路由（route）静态文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-%E8%B7%AF%E7%94%B1%EF%BC%88route%EF%BC%89%E6%B8%B2%E6%9F%93%E6%A8%A1%E6%9D%BF"><span class="nav-text">2.8 路由（route）渲染模板</span></a></li></ol></li></ol>
     </div>
 </div>
 
