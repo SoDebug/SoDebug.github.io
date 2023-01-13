@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="杂言碎语">
+    <meta name="author" content="Li Jinchuan">
+    
+    <title>
+        
+            Web组件的编译 |
+        
+        SoDebug
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"sodebug.github.io","root":"/","language":"zh","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/logo.png","avatar":"/images/logo.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"可就是喜欢上了，不知从何而起，也没有附加的条件。","font_color":null,"hitokoto":true},"scroll":{"progress_bar":false,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"placeholder":null},"gitalk":{"github_id":"SoDebug","github_admins":null,"repository":"SoDebug.github.io","client_id":"f2e247efde2e29a115ee","client_secret":"d0ca35c636a29ff5be35980f7a721f3825e8427e"},"twikoo":{"env_id":null,"region":null,"version":"1.6.7"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":false},"version":"3.6.0"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               SoDebug
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Web组件的编译</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Li Jinchuan</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-01-13 16:42:43</span>
+        <span class="mobile">2023-01-13 16:42</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-01-13 18:10:00</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Material-You/">Material You</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BC%96%E8%AF%91/">编译</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>4.7k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>27 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <blockquote>
+<p>一直想着自己制作一款Material You风格的产品（App、Web），这次假借毕业设计之名，想要设计出一款Material You风格的教务系统</p>
+</blockquote>
+<h2 id="一、官方技术支持正在进行时？"><a href="#一、官方技术支持正在进行时？" class="headerlink" title="一、官方技术支持正在进行时？"></a>一、官方技术支持正在进行时？</h2><blockquote>
+<p>既然决定去做了，就应当师承正统</p>
+</blockquote>
+<p>Material You出自Google旗下，这里就直接去它的<a class="link"   target="_blank" rel="noopener" href="https://m3.material.io/develop/web" >官网<i class="fas fa-external-link-alt"></i></a>找了。从官方的web demo上看效果确实不错。</p>
+<p><img src="/../images/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Material%20You%20Web%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BC%96%E8%AF%91/image-20230113164903542.png" alt="image-20230113164903542"></p>
+<p><img src="/../images/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Material%20You%20Web%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BC%96%E8%AF%91/image-20230113164952501.png" alt="image-20230113164952501"></p>
+<p>但是有一个问题，Google官方对Material You Web平台的开发并没有完成。公告上显示：</p>
+<p> <strong>Web support is planned</strong></p>
+<p>The Material Web team is making significant changes to the codebase in preparation for adding Material Design 3 support. Follow the <a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web#readme" >material-web repository<i class="fas fa-external-link-alt"></i></a> on Github for updates.</p>
+<p><img src="/../images/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Material%20You%20Web%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BC%96%E8%AF%91/image-20230113165121881.png" alt="image-20230113165121881"></p>
+<h2 id="二、Github-repo-尝鲜？"><a href="#二、Github-repo-尝鲜？" class="headerlink" title="二、Github repo 尝鲜？"></a>二、Github repo 尝鲜？</h2><blockquote>
+<p>正如上段所说，官方技术支持正在进行时，我们便根据官方文档的指引找到了它的<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web" >源代码库<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>看到官方任然正在开发时本准备无功而返了，但是我在issues里面发现了Google的计划发布日期相关的<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web/issues/3050" >issue<i class="fas fa-external-link-alt"></i></a>:</p>
+<p><img src="/../images/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Material%20You%20Web%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BC%96%E8%AF%91/image-20230113165813406.png" alt="image-20230113165813406"></p>
+<p>这里说到，Google Material 3 Web 相关技术团队预备在2022年底前发布第一个版本。而今是：2023&#x2F;01&#x2F;13，那么，此时官方应该有一个基本完备的版本了。</p>
+<p>然后在仓库的<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web/releases/tag/v1.0.0-pre.1" >Release页面<i class="fas fa-external-link-alt"></i></a>发现了最新的版本：<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web/archive/refs/tags/v1.0.0-pre.1.zip" >v1.0.0-pre.1<i class="fas fa-external-link-alt"></i></a></p>
+<p>可以看出这是与发布版本，不出意外，这个版本和正式版相比不会有太大的变化。因此我准备就这个版本进行尝鲜。</p>
+<h2 id="三、使用方法？"><a href="#三、使用方法？" class="headerlink" title="三、使用方法？"></a>三、使用方法？</h2><p>看了一下本repo的<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-web/blob/master/README.md" >REDAME.md<i class="fas fa-external-link-alt"></i></a>，发现官方并没有为其准备使用指南。</p>
+<p>&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;<em>&lt;&#x3D;&gt;</em>&lt;&#x3D;&gt;&lt;&#x3D;</p>
+<p>然后我想的是既然都是一家开发的，那么Material 2的使用指南会不会能用。</p>
+<p>官方README里面提到：Note: Looking for Material 2? MWC components are now on the <a target="_blank" rel="noopener" href="https://github.com/material-components/material-web/tree/mwc"><code>mwc</code> branch</a>.</p>
+<p>也就是原MD2，现在同样在本repo中，其为<code>mwc</code>分支。</p>
+<h2 id="四、编译环境部署"><a href="#四、编译环境部署" class="headerlink" title="四、编译环境部署"></a>四、编译环境部署</h2><h3 id="4-1-Windows-部署"><a href="#4-1-Windows-部署" class="headerlink" title="4.1 Windows 部署"></a>4.1 Windows 部署</h3><h4 id="4-1-1-第一次部署"><a href="#4-1-1-第一次部署" class="headerlink" title="4.1.1 第一次部署"></a>4.1.1 第一次部署</h4><p>电脑环境如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+</tbody></table>
+<ul>
+<li>克隆仓库源码到本地：<code>git clone https://github.com/material-components/material-web.git</code></li>
+<li>尝试安装：<code>npm install</code></li>
+</ul>
+<p>然后就是报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code 1</span><br><span class="line">npm ERR! path E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! <span class="built_in">command</span> failed</span><br><span class="line">npm ERR! <span class="built_in">command</span> C:\Windows\system32\cmd.exe /d /s /c node build.js || nodejs build.js</span><br><span class="line">npm ERR! gyp info it worked <span class="keyword">if</span> it ends with ok</span><br><span class="line">npm ERR! gyp info using node-gyp@9.1.0</span><br><span class="line">npm ERR! gyp info using node@16.18.1 | win32 | x64</span><br><span class="line">npm ERR! gyp info find Python using Python version 3.8.15 found at <span class="string">&quot;C:\Users\13633\InstalledAPP\Conda\envs\py38\python.exe&quot;</span></span><br><span class="line">npm ERR! gyp ERR! find VS</span><br><span class="line">npm ERR! gyp ERR! find VS msvs_version not <span class="built_in">set</span> from <span class="built_in">command</span> line or npm config</span><br><span class="line">npm ERR! gyp ERR! find VS VCINSTALLDIR not <span class="built_in">set</span>, not running <span class="keyword">in</span> VS Command Prompt</span><br><span class="line">npm ERR! gyp ERR! find VS could not use PowerShell to find Visual Studio 2017 or newer, try re-running with <span class="string">&#x27;--loglevel silly&#x27;</span> <span class="keyword">for</span> more details</span><br><span class="line">npm ERR! gyp ERR! find VS looking <span class="keyword">for</span> Visual Studio 2015</span><br><span class="line">npm ERR! gyp ERR! find VS - not found</span><br><span class="line">npm ERR! gyp ERR! find VS not looking <span class="keyword">for</span> VS2013 as it is only supported up to Node.js 8</span><br><span class="line">npm ERR! gyp ERR! find VS</span><br><span class="line">npm ERR! gyp ERR! find VS **************************************************************</span><br><span class="line">npm ERR! gyp ERR! find VS You need to install the latest version of Visual Studio</span><br><span class="line">npm ERR! gyp ERR! find VS including the <span class="string">&quot;Desktop development with C++&quot;</span> workload.</span><br><span class="line">npm ERR! gyp ERR! find VS For more information consult the documentation at:</span><br><span class="line">npm ERR! gyp ERR! find VS https://github.com/nodejs/node-gyp<span class="comment">#on-windows</span></span><br><span class="line">npm ERR! gyp ERR! find VS **************************************************************</span><br><span class="line">npm ERR! gyp ERR! find VS</span><br><span class="line">npm ERR! gyp ERR! configure error</span><br><span class="line">npm ERR! gyp ERR! stack Error: Could not find any Visual Studio installation to use</span><br><span class="line">npm ERR! gyp ERR! stack     at VisualStudioFinder.fail (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-visualstudio.js:122:47)</span><br><span class="line">npm ERR! gyp ERR! stack     at C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-visualstudio.js:75:16</span><br><span class="line">npm ERR! gyp ERR! stack     at VisualStudioFinder.findVisualStudio2013 (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-visualstudio.js:364:14)</span><br><span class="line">npm ERR! gyp ERR! stack     at C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-visualstudio.js:71:14</span><br><span class="line">npm ERR! gyp ERR! stack     at C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-visualstudio.js:385:16</span><br><span class="line">npm ERR! gyp ERR! stack     at C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\util.js:54:7</span><br><span class="line">npm ERR! gyp ERR! stack     at C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\util.js:33:16</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.exithandler (node:child_process:410:5)</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.emit (node:events:513:28)</span><br><span class="line">npm ERR! gyp ERR! stack     at maybeClose (node:internal/child_process:1100:16)</span><br><span class="line">npm ERR! gyp ERR! System Windows_NT 10.0.22623</span><br><span class="line">npm ERR! gyp ERR! <span class="built_in">command</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node.exe&quot;</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span> <span class="string">&quot;--release&quot;</span></span><br><span class="line">npm ERR! gyp ERR! cwd E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! gyp ERR! node -v v16.18.1</span><br><span class="line">npm ERR! gyp ERR! node-gyp -v v9.1.0</span><br><span class="line">npm ERR! gyp ERR! not ok</span><br><span class="line">npm ERR! node-gyp exited with code: 1</span><br><span class="line">npm ERR! Please make sure you are using a supported platform and node version. If you</span><br><span class="line">npm ERR! would like to compile fibers on this machine please make sure you have setup your</span><br><span class="line">npm ERR! build environment--</span><br><span class="line">npm ERR! Windows + OS X instructions here: https://github.com/nodejs/node-gyp</span><br><span class="line">npm ERR! Ubuntu <span class="built_in">users</span> please run: `sudo apt-get install g++ build-essential`</span><br><span class="line">npm ERR! RHEL <span class="built_in">users</span> please run: `yum install gcc-c++` and `yum groupinstall <span class="string">&#x27;Development Tools&#x27;</span>`</span><br><span class="line">npm ERR! Alpine <span class="built_in">users</span> please run: `sudo apk add python make g++`</span><br></pre></td></tr></table></figure>
+
+<p>从目前的报错情况中，它要我们在执行<code>npm install</code>前需要先配置以下环境：</p>
+<ul>
+<li>Visual Studio (including the “Desktop development with C++” workload)</li>
+</ul>
+<p>然后我就去下载了最新的Visual Code 2022，并按照它的要求安装Desktop development with C++。</p>
+<h4 id="4-1-2-第二次部署"><a href="#4-1-2-第二次部署" class="headerlink" title="4.1.2 第二次部署"></a>4.1.2 第二次部署</h4><table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+<tr>
+<td align="center">Visual Code Version</td>
+<td align="center">2022</td>
+</tr>
+</tbody></table>
+<ul>
+<li>继续安装：<code>npm install</code></li>
+</ul>
+<p>然后又是报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code 1</span><br><span class="line">npm ERR! path E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! <span class="built_in">command</span> failed</span><br><span class="line">npm ERR! <span class="built_in">command</span> C:\Windows\system32\cmd.exe /d /s /c node build.js || nodejs build.js</span><br><span class="line">npm ERR! gyp info it worked <span class="keyword">if</span> it ends with ok</span><br><span class="line">npm ERR! gyp info using node-gyp@9.1.0</span><br><span class="line">npm ERR! gyp info using node@16.18.1 | win32 | x64</span><br><span class="line">npm ERR! gyp ERR! find Python</span><br><span class="line">npm ERR! gyp ERR! find Python Python is not <span class="built_in">set</span> from <span class="built_in">command</span> line or npm configuration</span><br><span class="line">npm ERR! gyp ERR! find Python Python is not <span class="built_in">set</span> from environment variable PYTHON</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> <span class="string">&quot;python3&quot;</span> can be used</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;python3&quot;</span> is not <span class="keyword">in</span> PATH or produced an error</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> <span class="string">&quot;python&quot;</span> can be used</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;python&quot;</span> is not <span class="keyword">in</span> PATH or produced an error</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python39\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python39\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python39\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python39\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python39-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python39-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python39-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python39-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files (x86)\Python39-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files (x86)\Python39-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python38\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python38\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python38\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python38\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python38-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python38-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python38-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python38-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files (x86)\Python38-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files (x86)\Python38-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python37\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python37\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python37\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python37\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python37-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python37-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python37-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python37-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files (x86)\Python37-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files (x86)\Python37-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python36\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python36\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python36\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python36\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Users\13633\AppData\Local\Programs\Python\Python36-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Users\13633\AppData\Local\Programs\Python\Python36-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files\Python36-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files\Python36-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> Python is C:\Program Files (x86)\Python36-32\python.exe</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;C:\Program Files (x86)\Python36-32\python.exe&quot;</span> could not be run</span><br><span class="line">npm ERR! gyp ERR! find Python checking <span class="keyword">if</span> the py launcher can be used to find Python 3</span><br><span class="line">npm ERR! gyp ERR! find Python - <span class="string">&quot;py.exe&quot;</span> is not <span class="keyword">in</span> PATH or produced an error</span><br><span class="line">npm ERR! gyp ERR! find Python</span><br><span class="line">npm ERR! gyp ERR! find Python **********************************************************</span><br><span class="line">npm ERR! gyp ERR! find Python You need to install the latest version of Python.</span><br><span class="line">npm ERR! gyp ERR! find Python Node-gyp should be able to find and use Python. If not,</span><br><span class="line">npm ERR! gyp ERR! find Python you can try one of the following options:</span><br><span class="line">npm ERR! gyp ERR! find Python - Use the switch --python=<span class="string">&quot;C:\Path\To\python.exe&quot;</span></span><br><span class="line">npm ERR! gyp ERR! find Python   (accepted by both node-gyp and npm)</span><br><span class="line">npm ERR! gyp ERR! find Python - Set the environment variable PYTHON</span><br><span class="line">npm ERR! gyp ERR! find Python - Set the npm configuration variable python:</span><br><span class="line">npm ERR! gyp ERR! find Python   npm config <span class="built_in">set</span> python <span class="string">&quot;C:\Path\To\python.exe&quot;</span></span><br><span class="line">npm ERR! gyp ERR! find Python For more information consult the documentation at:</span><br><span class="line">npm ERR! gyp ERR! find Python https://github.com/nodejs/node-gyp<span class="comment">#installation</span></span><br><span class="line">npm ERR! gyp ERR! find Python **********************************************************</span><br><span class="line">npm ERR! gyp ERR! find Python</span><br><span class="line">npm ERR! gyp ERR! configure error</span><br><span class="line">npm ERR! gyp ERR! stack Error: Could not find any Python installation to use</span><br><span class="line">npm ERR! gyp ERR! stack     at PythonFinder.fail (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-python.js:330:47)</span><br><span class="line">npm ERR! gyp ERR! stack     at PythonFinder.runChecks (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-python.js:159:21)</span><br><span class="line">npm ERR! gyp ERR! stack     at PythonFinder.&lt;anonymous&gt; (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-python.js:228:18)</span><br><span class="line">npm ERR! gyp ERR! stack     at PythonFinder.execFileCallback (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\find-python.js:294:16)</span><br><span class="line">npm ERR! gyp ERR! stack     at exithandler (node:child_process:410:5)</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.errorhandler (node:child_process:422:5)</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.emit (node:events:513:28)</span><br><span class="line">npm ERR! gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:291:12)</span><br><span class="line">npm ERR! gyp ERR! stack     at onErrorNT (node:internal/child_process:485:16)</span><br><span class="line">npm ERR! gyp ERR! stack     at processTicksAndRejections (node:internal/process/task_queues:83:21)</span><br><span class="line">npm ERR! gyp ERR! System Windows_NT 10.0.22623</span><br><span class="line">npm ERR! gyp ERR! <span class="built_in">command</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node.exe&quot;</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span> <span class="string">&quot;--release&quot;</span></span><br><span class="line">npm ERR! gyp ERR! cwd E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! gyp ERR! node -v v16.18.1</span><br><span class="line">npm ERR! gyp ERR! node-gyp -v v9.1.0</span><br><span class="line">npm ERR! gyp ERR! not ok</span><br><span class="line">npm ERR! node-gyp exited with code: 1</span><br><span class="line">npm ERR! Please make sure you are using a supported platform and node version. If you</span><br><span class="line">npm ERR! would like to compile fibers on this machine please make sure you have setup your</span><br><span class="line">npm ERR! build environment--</span><br><span class="line">npm ERR! Windows + OS X instructions here: https://github.com/nodejs/node-gyp</span><br><span class="line">npm ERR! Ubuntu <span class="built_in">users</span> please run: `sudo apt-get install g++ build-essential`</span><br><span class="line">npm ERR! RHEL <span class="built_in">users</span> please run: `yum install gcc-c++` and `yum groupinstall <span class="string">&#x27;Development Tools&#x27;</span>`</span><br><span class="line">npm ERR! Alpine <span class="built_in">users</span> please run: `sudo apk add python make g++`</span><br></pre></td></tr></table></figure>
+
+<p>这次的报错情况中，它要我们在执行<code>npm install</code>前需要先配置要先配置全局Python环境，然后因为我是使用<code>Conda Mini</code>配置的环境。</p>
+<p>然后我就把该Python环境添加到系统环境变量了。</p>
+<h4 id="4-1-3-第三次部署"><a href="#4-1-3-第三次部署" class="headerlink" title="4.1.3 第三次部署"></a>4.1.3 第三次部署</h4><table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+<tr>
+<td align="center">Visual Code Version</td>
+<td align="center">2022</td>
+</tr>
+<tr>
+<td align="center">Python Version</td>
+<td align="center">3.8.15</td>
+</tr>
+</tbody></table>
+<p>现在继续执行<code>npm install</code>。</p>
+<p>然后又是报错：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code 1</span><br><span class="line">npm ERR! path E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! <span class="built_in">command</span> failed</span><br><span class="line">npm ERR! <span class="built_in">command</span> C:\Windows\system32\cmd.exe /d /s /c node build.js || nodejs build.js</span><br><span class="line">npm ERR! �ڴ˽��������һ������һ����Ŀ����Ҫ���ò������ɣ������ӡ�-m�����ء�</span><br><span class="line">npm ERR!   fibers.cc</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(899,10): error C2661: ��v8::Object::Set��: û�����غ������� 2 ������ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(899,10): message : ����ƥ������б���(v8::Local&lt;v8::String&gt;, v8::Local&lt;v8::Function&gt;)��ʱ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(903,6): error C2661: ��v8::Object::Set��: û�����غ������� 2 ������ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(903,6): message : ����ƥ������б���(v8::Local&lt;v8::String&gt;, v8::Local&lt;v8::Function&gt;)��ʱ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(909,10): error C2661: ��v8::Object::Set��: û�����غ������� 2 ������ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(909,10): message : ����ƥ������б���(v8::Local&lt;v8::String&gt;, v8::Local&lt;v8::Function&gt;)��ʱ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(927,25): error C2661: ��v8::Object::Get��: û�����غ������� 1 ������ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\src\fibers.cc(927,25): message : ����ƥ������б���(v8::Local&lt;v8::String&gt;)��ʱ [E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers\build\fibers.vcxproj]</span><br><span class="line">npm ERR! gyp info it worked <span class="keyword">if</span> it ends with ok</span><br><span class="line">npm ERR! gyp info using node-gyp@9.1.0</span><br><span class="line">npm ERR! gyp info using node@16.18.1 | win32 | x64</span><br><span class="line">npm ERR! gyp info find Python using Python version 3.8.15 found at <span class="string">&quot;C:\Users\13633\InstalledAPP\Conda\envs\py38\python.exe&quot;</span></span><br><span class="line">npm ERR! gyp info find VS using VS2022 (17.4.33213.308) found at:</span><br><span class="line">npm ERR! gyp info find VS <span class="string">&quot;C:\Users\13633\InstalledAPP\Visual Studio\IDE&quot;</span></span><br><span class="line">npm ERR! gyp info find VS run with --verbose <span class="keyword">for</span> detailed information</span><br><span class="line">npm ERR! gyp info spawn C:\Users\13633\InstalledAPP\Conda\envs\py38\python.exe</span><br><span class="line">npm ERR! gyp info spawn args [</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp\\gyp\\gyp_main.py&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;binding.gyp&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-f&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;msvs&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;E:\\Codelab\\material-components-web-codelabs\\mdc-101\\starter\\node_modules\\fibers\\build\\config.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp\\addon.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-I&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;C:\\Users\\13633\\AppData\\Local\\node-gyp\\Cache\\16.18.1\\include\\node\\common.gypi&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dlibrary=shared_library&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dvisibility=default&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_root_dir=C:\\Users\\13633\\AppData\\Local\\node-gyp\\Cache\\16.18.1&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_gyp_dir=C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_lib_file=C:\\\\Users\\\\13633\\\\AppData\\\\Local\\\\node-gyp\\\\Cache\\\\16.18.1\\\\&lt;(target_arch)\\\\node.lib&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dmodule_root_dir=E:\\Codelab\\material-components-web-codelabs\\mdc-101\\starter\\node_modules\\fibers&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Dnode_engine=v8&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--depth=.&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--no-parallel&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;--generator-output&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;E:\\Codelab\\material-components-web-codelabs\\mdc-101\\starter\\node_modules\\fibers\\build&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;-Goutput_dir=.&#x27;</span></span><br><span class="line">npm ERR! gyp info spawn args ]</span><br><span class="line">npm ERR! gyp info spawn C:\Users\13633\InstalledAPP\Visual Studio\IDE\MSBuild\Current\Bin\MSBuild.exe</span><br><span class="line">npm ERR! gyp info spawn args [</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;build/binding.sln&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/clp:Verbosity=minimal&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/nologo&#x27;</span>,</span><br><span class="line">npm ERR! gyp info spawn args   <span class="string">&#x27;/p:Configuration=Release;Platform=x64&#x27;</span></span><br><span class="line">npm ERR! gyp info spawn args ]</span><br><span class="line">npm ERR! gyp ERR! build error</span><br><span class="line">npm ERR! gyp ERR! stack Error: `C:\Users\13633\InstalledAPP\Visual Studio\IDE\MSBuild\Current\Bin\MSBuild.exe` failed with <span class="built_in">exit</span> code: 1</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.onExit (C:\Users\13633\InstalledAPP\npm\node_modules\npm\node_modules\node-gyp\lib\build.js:201:23)</span><br><span class="line">npm ERR! gyp ERR! stack     at ChildProcess.emit (node:events:513:28)</span><br><span class="line">npm ERR! gyp ERR! stack     at Process.ChildProcess._handle.onexit (node:internal/child_process:293:12)</span><br><span class="line">npm ERR! gyp ERR! System Windows_NT 10.0.22623</span><br><span class="line">npm ERR! gyp ERR! <span class="built_in">command</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node.exe&quot;</span> <span class="string">&quot;C:\\Users\\13633\\InstalledAPP\\npm\\node_modules\\npm\\node_modules\\node-gyp\\bin\\node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span> <span class="string">&quot;--release&quot;</span></span><br><span class="line">npm ERR! gyp ERR! cwd E:\Codelab\material-components-web-codelabs\mdc-101\starter\node_modules\fibers</span><br><span class="line">npm ERR! gyp ERR! node -v v16.18.1</span><br><span class="line">npm ERR! gyp ERR! node-gyp -v v9.1.0</span><br><span class="line">npm ERR! gyp ERR! not ok</span><br><span class="line">npm ERR! node-gyp exited with code: 1</span><br><span class="line">npm ERR! Please make sure you are using a supported platform and node version. If you</span><br><span class="line">npm ERR! would like to compile fibers on this machine please make sure you have setup your</span><br><span class="line">npm ERR! build environment--</span><br><span class="line">npm ERR! Windows + OS X instructions here: https://github.com/nodejs/node-gyp</span><br><span class="line">npm ERR! Ubuntu <span class="built_in">users</span> please run: `sudo apt-get install g++ build-essential`</span><br><span class="line">npm ERR! RHEL <span class="built_in">users</span> please run: `yum install gcc-c++` and `yum groupinstall <span class="string">&#x27;Development Tools&#x27;</span>`</span><br><span class="line">npm ERR! Alpine <span class="built_in">users</span> please run: `sudo apk add python make g++`</span><br></pre></td></tr></table></figure>
+
+<p>这次报错是说缺少<code>node-gyp</code>，这次直接去<a class="link"   target="_blank" rel="noopener" href="https://github.com/nodejs/node-gyp" >node-gyp<i class="fas fa-external-link-alt"></i></a>仓库找办法安装，gyp给出的安装办法是：<code>npm install -g node-gyp</code></p>
+<h4 id="4-1-3-第四次部署"><a href="#4-1-3-第四次部署" class="headerlink" title="4.1.3 第四次部署"></a>4.1.3 第四次部署</h4><table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+<tr>
+<td align="center">Visual Code Version</td>
+<td align="center">2022</td>
+</tr>
+<tr>
+<td align="center">Python Version</td>
+<td align="center">3.8.15</td>
+</tr>
+<tr>
+<td align="center">node-gpy Version</td>
+<td align="center">9.3.1</td>
+</tr>
+</tbody></table>
+<p>然后继续安装：<code>npm install</code></p>
+<p>这次<code>npm install</code>顺利，直接进入到下一个报错。</p>
+<ul>
+<li><code>npm run build</code>报错:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">🏃 [build:sass] Running <span class="built_in">command</span> <span class="string">&quot;sass --style=compressed --load-path=node_modules --load-path=node_modules/sass-true/sass <span class="subst">$(ls -d */ | grep -v node_modules)</span>&quot;</span></span><br><span class="line"><span class="string">&#x27;grep&#x27;</span> �����ڲ����ⲿ���Ҳ���ǿ����еĳ���</span><br><span class="line">�������ļ�</span><br><span class="line">❌ [build:sass] Failed with <span class="built_in">exit</span> status 255</span><br></pre></td></tr></table></figure>
+
+<p>这个错误消息表明，系统上找不到命令 ‘grep’，这是因为在 Windows 系统上并不带有 grep 命令。</p>
+<p>然后我们直接：<code>npm install grep-cli</code>，解决了这个错误。</p>
+<h4 id="4-1-4-第n次部署"><a href="#4-1-4-第n次部署" class="headerlink" title="4.1.4 第n次部署"></a>4.1.4 第n次部署</h4><table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+<tr>
+<td align="center">Visual Code Version</td>
+<td align="center">2022</td>
+</tr>
+<tr>
+<td align="center">Python Version</td>
+<td align="center">3.8.15</td>
+</tr>
+<tr>
+<td align="center">node-gpy Version</td>
+<td align="center">9.3.1</td>
+</tr>
+<tr>
+<td align="center">grep-cli Version</td>
+<td align="center">lastest</td>
+</tr>
+</tbody></table>
+<p>同样的：</p>
+<ul>
+<li><code>npm run build</code>报错:</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">🏃 [build:sass] Running <span class="built_in">command</span> <span class="string">&quot;sass --style=compressed --load-path=node_modules --load-path=node_modules/sass-true/sass <span class="subst">$(ls -d */ | grep -v node_modules)</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    --version                  Print the version of Dart Sass.</span><br><span class="line">✅ [build:sass] Executed successfully</span><br><span class="line">🏃 [build:css-to-ts] Running <span class="built_in">command</span> <span class="string">&quot;find . \( -path ./.wireit -o -path ./node_modules \) -prune -o -name &#x27;*.css&#x27; -print | xargs node css-to-ts.js&quot;</span></span><br><span class="line"><span class="string">&#x27;xargs&#x27;</span> �����ڲ����ⲿ���Ҳ���ǿ����еĳ���</span><br><span class="line">�������ļ�</span><br><span class="line">❌ [build:css-to-ts] Failed with <span class="built_in">exit</span> status 255</span><br></pre></td></tr></table></figure>
+
+<p>错误原因，系统中缺少 <code>xargs</code> 命令，导致运行失败。但是Windows中没有可以官方安装 <code>xargs</code> 的办法。</p>
+<p>。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+<p>。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。。</p>
+<p>然后在某issue中看到有人说，<a target="_blank" rel="noopener" href="https://github.com/bmatzelle/gow/"><code>Gow</code></a>可以提供残缺的 <code>xargs</code>命令集。我也去实施了。</p>
+<h4 id="4-1-5-第n-1次部署"><a href="#4-1-5-第n-1次部署" class="headerlink" title="4.1.5 第n+1次部署"></a>4.1.5 第n+1次部署</h4><table>
+<thead>
+<tr>
+<th align="center">items</th>
+<th align="center">envs</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Windows Version</td>
+<td align="center">22623.1095</td>
+</tr>
+<tr>
+<td align="center">Node Version</td>
+<td align="center">16.18.1</td>
+</tr>
+<tr>
+<td align="center">Visual Code Version</td>
+<td align="center">2022</td>
+</tr>
+<tr>
+<td align="center">Python Version</td>
+<td align="center">3.8.15</td>
+</tr>
+<tr>
+<td align="center">node-gpy Version</td>
+<td align="center">9.3.1</td>
+</tr>
+<tr>
+<td align="center">grep-cli Version</td>
+<td align="center">lastest</td>
+</tr>
+<tr>
+<td align="center">Gow Version</td>
+<td align="center">0.80</td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>npm install</code></li>
+<li><code>npm run build</code>报错:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">🏃 [build:ts] Running command <span class="string">&quot;tsc --pretty&quot;</span></span><br><span class="line">autocomplete/autocomplete-item.ts:<span class="number">9</span>:<span class="number">22</span> - error TS2307: Cannot find module <span class="string">&#x27;../list/lib/listitem/list-item-styles.css.js&#x27;</span> <span class="keyword">or</span> its corresponding <span class="built_in">type</span> declarations.</span><br></pre></td></tr></table></figure>
+
+<p>又是缺少关键部件，可能是兼容性的问题，但已经没有明确的解决办法了。放弃使用Windows部署！！！</p>
+<h3 id="4-2-Linux-部署"><a href="#4-2-Linux-部署" class="headerlink" title="4.2 Linux 部署"></a>4.2 Linux 部署</h3><h4 id="4-2-1-第一次部署"><a href="#4-2-1-第一次部署" class="headerlink" title="4.2.1 第一次部署"></a>4.2.1 第一次部署</h4><ul>
+<li><p>安装node：<code>url -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash</code> &amp; <code>nvm install --lts</code></p>
+</li>
+<li><p>克隆仓库源码到本地：<code>git clone https://github.com/material-components/material-web.git</code></p>
+</li>
+<li><p>node 安装：<code>npm install</code></p>
+<p>安装的版本为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-&gt;     v18.13.0</span><br><span class="line">default -&gt; lts/* (-&gt; v18.13.0)</span><br><span class="line">iojs -&gt; N/A (default)</span><br><span class="line">unstable -&gt; N/A (default)</span><br><span class="line">node -&gt; stable (-&gt; v18.13.0) (default)</span><br><span class="line">stable -&gt; 18.13 (-&gt; v18.13.0) (default)</span><br><span class="line">lts/* -&gt; lts/hydrogen (-&gt; v18.13.0)</span><br><span class="line">lts/argon -&gt; v4.9.1 (-&gt; N/A)</span><br><span class="line">lts/boron -&gt; v6.17.1 (-&gt; N/A)</span><br><span class="line">lts/carbon -&gt; v8.17.0 (-&gt; N/A)</span><br><span class="line">lts/dubnium -&gt; v10.24.1 (-&gt; N/A)</span><br><span class="line">lts/erbium -&gt; v12.22.12 (-&gt; N/A)</span><br><span class="line">lts/fermium -&gt; v14.21.2 (-&gt; N/A)</span><br><span class="line">lts/gallium -&gt; v16.19.0 (-&gt; N/A)</span><br><span class="line">lts/hydrogen -&gt; v18.13.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>node 构建：<code>npm run build</code></p>
+</li>
+</ul>
+<p>直接成功，结束！</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Material-You/">#Material You</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Web/">#Web</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/%E7%BC%96%E8%AF%91/">#编译</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/11/Python%20Web%20%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8BFlask%EF%BC%881%EF%BC%89/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">快速上手Flask（1）</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;Comments
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: 'f2e247efde2e29a115ee',
+                clientSecret: 'd0ca35c636a29ff5be35980f7a721f3825e8427e',
+                repo: 'SoDebug.github.io',
+                owner: 'SoDebug',
+                admin: 'SoDebug',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%AE%98%E6%96%B9%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81%E6%AD%A3%E5%9C%A8%E8%BF%9B%E8%A1%8C%E6%97%B6%EF%BC%9F"><span class="nav-text">一、官方技术支持正在进行时？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Github-repo-%E5%B0%9D%E9%B2%9C%EF%BC%9F"><span class="nav-text">二、Github repo 尝鲜？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="nav-text">三、使用方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="nav-text">四、编译环境部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Windows-%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1 Windows 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.1 第一次部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-%E7%AC%AC%E4%BA%8C%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.2 第二次部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-%E7%AC%AC%E4%B8%89%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.3 第三次部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-%E7%AC%AC%E5%9B%9B%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.3 第四次部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-4-%E7%AC%ACn%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.4 第n次部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-5-%E7%AC%ACn-1%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.1.5 第n+1次部署</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-Linux-%E9%83%A8%E7%BD%B2"><span class="nav-text">4.2 Linux 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%83%A8%E7%BD%B2"><span class="nav-text">4.2.1 第一次部署</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Li Jinchuan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.0</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
