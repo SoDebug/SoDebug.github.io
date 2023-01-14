@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="杂言碎语">
+    <meta name="author" content="Li Jinchuan">
+    
+    <title>
+        
+            Material Design Web 入门 |
+        
+        SoDebug
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"sodebug.github.io","root":"/","language":"zh","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/logo.png","avatar":"/images/logo.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"可就是喜欢上了，不知从何而起，也没有附加的条件。","font_color":null,"hitokoto":true},"scroll":{"progress_bar":false,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"placeholder":null},"gitalk":{"github_id":"SoDebug","github_admins":null,"repository":"SoDebug.github.io","client_id":"f2e247efde2e29a115ee","client_secret":"d0ca35c636a29ff5be35980f7a721f3825e8427e"},"twikoo":{"env_id":null,"region":null,"version":"1.6.7"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":false},"version":"3.6.0"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               SoDebug
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Material Design Web 入门</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Li Jinchuan</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-01-14 15:11:07</span>
+        <span class="mobile">2023-01-14 15:11</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-01-14 15:11:07</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Material-Design/">Material Design</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Sass/">Sass</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Web/">Web</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.8k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>8 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <h2 id="Step-1-Webpack-with-Sacc"><a href="#Step-1-Webpack-with-Sacc" class="headerlink" title="Step 1: Webpack with Sacc"></a>Step 1: Webpack with Sacc</h2><p>我们准备使用 <code>webpack-dev-server</code> 来演示<code>webpack</code>是如何将<code>Sass</code>和<code>JavaScript</code>文件绑定的。<br>首先运行<code>npm init</code>创建<code>package.json</code>文件。完成之后将<code>start</code>属性添加到<code>scripts</code>部分中。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;webpack serve&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>继续后面的步骤需要先安装以下Node dependencies：</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/webpack" >webpack<i class="fas fa-external-link-alt"></i></a>: 用于绑定Sass和JavaScript(node&gt;&#x3D;10.13.0)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/webpack-dev-server" >webpack-dev-server<i class="fas fa-external-link-alt"></i></a>: 提供开发服务器(node&gt;&#x3D;12.13.0, npm&#x3D;4.11.1)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/sass-loader" >sass-loader<i class="fas fa-external-link-alt"></i></a>: 用于预处理 Sass 文件的 Webpack 加载器(node&gt;&#x3D;14.15.0, npm&#x3D;13.2.0)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/sass" >sass<i class="fas fa-external-link-alt"></i></a>: Sass编译器</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/css-loader" >css-loader<i class="fas fa-external-link-alt"></i></a>: 解析 CSS @import 和 url() 路径(node&gt;&#x3D;12.13.0, npm&#x3D;6.7.3)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/peerigon/extract-loader" >extract-loader<i class="fas fa-external-link-alt"></i></a>: 将 CSS 提取到 .css 文件中(npm&#x3D;5.1.0)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/webpack-contrib/file-loader" >file-loader<i class="fas fa-external-link-alt"></i></a>: 将 .css 文件作为公共 URL 提供(node&gt;&#x3D;10.13.0, npm&#x3D;6.2.0)</li>
+</ul>
+<p>可以运行以下命令将其全部安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev webpack webpack-cli webpack-dev-server css-loader sass-loader sass extract-loader file-loader</span><br></pre></td></tr></table></figure>
+
+<p>为了展示<code>webpack</code>如何绑定<code>Sass</code>，需要一个简易的<code>index.html</code>。这个HTML文件需要包含CSS。其中的CSS是通过sass-loader将Sass文件编译而成的。这个CSS会经由extract-loader导出为<code>.css</code>文件。以下是一个包含”hello world”的<code>index.html</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;bundle.css&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span>Hello World<span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>并创建一个简易的Sass文件，我们把它命名为<code>app.scss</code>:</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后配置webpack将<code>app</code>转化为<code>bundle.css</code>。<code>webpack.config.js</code>示例文件如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = [&#123;</span><br><span class="line">  <span class="attr">entry</span>: <span class="string">&#x27;./app.scss&#x27;</span>,</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="comment">// This is necessary for webpack to compile</span></span><br><span class="line">    <span class="comment">// But we never use style-bundle.js</span></span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;style-bundle.js&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="attr">name</span>: <span class="string">&#x27;bundle.css&#x27;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123; <span class="attr">loader</span>: <span class="string">&#x27;extract-loader&#x27;</span> &#125;,</span><br><span class="line">          &#123; <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span> &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;sass-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="comment">// Prefer Dart Sass</span></span><br><span class="line">              <span class="attr">implementation</span>: <span class="built_in">require</span>(<span class="string">&#x27;sass&#x27;</span>),</span><br><span class="line"></span><br><span class="line">              <span class="comment">// See https://github.com/webpack-contrib/sass-loader/issues/804</span></span><br><span class="line">              <span class="attr">webpackImporter</span>: <span class="literal">false</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<p>运行以下命令去测试你的webpack配置文件是否正确：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<p>并在浏览器中打开<a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a>，你应该能看到一个蓝色的Hello World。</p>
+<p><img src="/../images/Material%20Design%E5%88%9D%E6%AD%A5%E5%B0%9D%E8%AF%95%E7%BC%96%E8%AF%91/unnamed%20(1).png" alt="unnamed (1)"></p>
+<h2 id="Step2-Include-CSS-for-a-component"><a href="#Step2-Include-CSS-for-a-component" class="headerlink" title="Step2: Include CSS for a component"></a>Step2: Include CSS for a component</h2><p>现在我们已经配置webpack将Sass编译成CSS，现在试试将Sass文件包含到Material Design按钮中去。首先安装这个Node dependency:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @material/button</span><br></pre></td></tr></table></figure>
+
+<p>我们需要告诉<code>app.scss</code>为<code>@material/button</code>导入这些Sass文件。我们也可以用Sass mixins来定制按钮。用以下代码去替换掉我们上一个”hello world”中的<code>app.scss</code>的代码：</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@use</span> <span class="string">&#x27;@material/button/mdc-button&#x27;</span>;</span><br><span class="line"><span class="keyword">@use</span> <span class="string">&#x27;@material/button&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.foo-button</span> &#123;</span><br><span class="line">  <span class="keyword">@include</span> button.container-fill-color(darksalmon);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们还需要配置sass-loader去了解MDC Web所使用的<code>@material</code> imports。现在通过修改<code>&#123; loader: &#39;sass-loader&#39; &#125; </code>中的内容来更新<code>webpack.config.js</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">loader</span>: <span class="string">&#x27;sass-loader&#x27;</span>,</span><br><span class="line">  <span class="attr">options</span>: &#123;</span><br><span class="line">    <span class="comment">// Prefer Dart Sass</span></span><br><span class="line">    <span class="attr">implementation</span>: <span class="built_in">require</span>(<span class="string">&#x27;sass&#x27;</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment">// See https://github.com/webpack-contrib/sass-loader/issues/804</span></span><br><span class="line">    <span class="attr">webpackImporter</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">sassOptions</span>: &#123;</span><br><span class="line">      <span class="attr">includePaths</span>: [<span class="string">&#x27;./node_modules&#x27;</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​	注意：配置<code>includePaths</code>理应能应对大多数MDC Web始终保持最新的情况。如果在编译 Sass 时遇到嵌套<code>node_modules</code> 目录的问题，可以参见下方<a class="link"   target="_blank" rel="noopener" href="https://m2.material.io/develop/web/getting-started#appendix-configuring-a-sass-importer-for-nested-node_modules" >Appendix<i class="fas fa-external-link-alt"></i></a>如何配置custom importer的介绍。</p>
+<p>为了将vendor-specific的样式文件添加到Sass文件中，我们需要通过PostCSS来配置<code>autoprefixer</code>。</p>
+<p>当然，你也需要安装以下Node dependencies:</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/autoprefixer" >autoprefixer<i class="fas fa-external-link-alt"></i></a>: 解析CSS并将vendor prefixes添加到CSS规则中</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/postcss/postcss-loader" >postcss-loader<i class="fas fa-external-link-alt"></i></a>: 与 autoprefixer 结合使用的 Webpack 加载器</li>
+</ul>
+<p>可以通过以下命令来安装所有的dependencies:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev autoprefixer postcss-loader</span><br></pre></td></tr></table></figure>
+
+<p>将<code>autoprefixer</code>添加到<code>webpack.config.js</code>的顶部：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> autoprefixer = <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后添加<code>postcss-loader</code>，使用<code>autoprefixer</code>作为插件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">loader</span>: <span class="string">&#x27;extract-loader&#x27;</span> &#125;,</span><br><span class="line">&#123; <span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span> &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">    <span class="attr">options</span>: &#123;</span><br><span class="line">      <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">        <span class="attr">plugins</span>: [</span><br><span class="line">          <span class="title function_">autoprefixer</span>()</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; </span><br><span class="line">  &#125;,</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">loader</span>: <span class="string">&#x27;sass-loader&#x27;</span>,</span><br><span class="line">  <span class="attr">options</span>: &#123;</span><br><span class="line">    <span class="attr">sassOptions</span>: &#123;</span><br><span class="line">      <span class="attr">includePaths</span>: [<span class="string">&#x27;./node_modules&#x27;</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// Prefer Dart Sass</span></span><br><span class="line">    <span class="attr">implementation</span>: <span class="built_in">require</span>(<span class="string">&#x27;sass&#x27;</span>),</span><br><span class="line"></span><br><span class="line">    <span class="comment">// See https://github.com/webpack-contrib/sass-loader/issues/804</span></span><br><span class="line">    <span class="attr">webpackImporter</span>: <span class="literal">false</span>,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><code>@material/button</code>在HTML配置按钮上有专门的<a class="link"   target="_blank" rel="noopener" href="https://github.com/material-components/material-components-web/blob/v12.0.0/packages/mdc-button/README.md" >说明文档<i class="fas fa-external-link-alt"></i></a>，现在将包含MDC Button markup添加到<code>index.html</code>中，并添加<code>foo-button</code>class到element中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;foo-button mdc-button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mdc-button__ripple&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;mdc-button__label&quot;</span>&gt;</span>Button<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在再次运行<code>npm start</code>，打开<a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a>。你可以看见一个Material Design Button！</p>
+<p><img src="/../images/Material%20Design%E5%88%9D%E6%AD%A5%E5%B0%9D%E8%AF%95%E7%BC%96%E8%AF%91/unnamed.png" alt="unnamed"></p>
+<h2 id="Step3-Webpack-with-ES2015"><a href="#Step3-Webpack-with-ES2015" class="headerlink" title="Step3: Webpack with ES2015"></a>Step3: Webpack with ES2015</h2><p>我们需要配置 webpack 通过 <a class="link"   target="_blank" rel="noopener" href="https://babeljs.io/" >babel<i class="fas fa-external-link-alt"></i></a> ES2015 JavaScript 打包成标准的 JavaScript。</p>
+<p>继续后续的步骤需要安装以下dependencies:</p>
+<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/@babel/core" >@babel&#x2F;core<i class="fas fa-external-link-alt"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/babel-loader" >babel-loader<i class="fas fa-external-link-alt"></i></a>: 使用babel编译JavaScript文件</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://www.npmjs.com/package/@babel/preset-env" >@babel&#x2F;preset-env<i class="fas fa-external-link-alt"></i></a>: 预编译es2015</li>
+</ul>
+<p>可以通过以下命令来安装所有的dependencies:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev @babel/core babel-loader @babel/preset-env</span><br></pre></td></tr></table></figure>
+
+<p>为了展示webpack是如何将JavaScript绑定的，你需要在<code>index.html</code>中添加JavaScript。这类JavaScript文件是由label-loader（编译ES2015文件）生成的。并在<code>index.html</code>中的<code>&lt;/body&gt;</code>结束前加上script标签：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;bundle.js&quot;</span> <span class="keyword">async</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>并创建一个简易的ES2015文件，我们将其命名为<code>app.js</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello world&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后通过在<code>webpack.config.js</code>中添加相关配置文件，将<code>app.js</code>转化为<code>bundle.js</code>:</p>
+<h3 id="3-1-修改entry为包含app-js和app-scss的数组"><a href="#3-1-修改entry为包含app-js和app-scss的数组" class="headerlink" title="3.1 修改entry为包含app.js和app.scss的数组"></a>3.1 修改entry为包含<code>app.js</code>和<code>app.scss</code>的数组</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">entry</span>: [<span class="string">&#x27;./app.scss&#x27;</span>, <span class="string">&#x27;./app.js&#x27;</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-修改配置文件中的输出名为：bundle-js："><a href="#3-2-修改配置文件中的输出名为：bundle-js：" class="headerlink" title="3.2 修改配置文件中的输出名为：bundle.js："></a>3.2 修改配置文件中的输出名为：<code>bundle.js</code>：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">output</span>: &#123;</span><br><span class="line">  <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-将babel-loader添加到sass-loader-之后的规则数组中："><a href="#3-3-将babel-loader添加到sass-loader-之后的规则数组中：" class="headerlink" title="3.3 将babel-loader添加到sass-loader 之后的规则数组中："></a>3.3 将<code>babel-loader</code>添加到<code>sass-loader</code> 之后的规则数组中：</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">  <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">  <span class="attr">query</span>: &#123;</span><br><span class="line">    <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后的<code>webpack.config.js</code>文件应该和下面差不错：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> autoprefixer = <span class="built_in">require</span>(<span class="string">&#x27;autoprefixer&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="attr">entry</span>: [<span class="string">&#x27;./app.scss&#x27;</span>, <span class="string">&#x27;./app.js&#x27;</span>],</span><br><span class="line">  <span class="attr">output</span>: &#123;</span><br><span class="line">    <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">module</span>: &#123;</span><br><span class="line">    <span class="attr">rules</span>: [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">        <span class="attr">use</span>: [</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;file-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="attr">name</span>: <span class="string">&#x27;bundle.css&#x27;</span>,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;<span class="attr">loader</span>: <span class="string">&#x27;extract-loader&#x27;</span>&#125;,</span><br><span class="line">          &#123;<span class="attr">loader</span>: <span class="string">&#x27;css-loader&#x27;</span>&#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;postcss-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="attr">postcssOptions</span>: &#123;</span><br><span class="line">                <span class="attr">plugins</span>: [</span><br><span class="line">                  <span class="title function_">autoprefixer</span>()</span><br><span class="line">                ]</span><br><span class="line">              &#125;</span><br><span class="line">            &#125; </span><br><span class="line">          &#125;,</span><br><span class="line">          &#123;</span><br><span class="line">            <span class="attr">loader</span>: <span class="string">&#x27;sass-loader&#x27;</span>,</span><br><span class="line">            <span class="attr">options</span>: &#123;</span><br><span class="line">              <span class="comment">// Prefer Dart Sass</span></span><br><span class="line">              <span class="attr">implementation</span>: <span class="built_in">require</span>(<span class="string">&#x27;sass&#x27;</span>),</span><br><span class="line"></span><br><span class="line">              <span class="comment">// See https://github.com/webpack-contrib/sass-loader/issues/804</span></span><br><span class="line">              <span class="attr">webpackImporter</span>: <span class="literal">false</span>,</span><br><span class="line">              <span class="attr">sassOptions</span>: &#123;</span><br><span class="line">                <span class="attr">includePaths</span>: [<span class="string">&#x27;./node_modules&#x27;</span>],</span><br><span class="line">              &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">          &#125;</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</span><br><span class="line">        <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">        <span class="attr">query</span>: &#123;</span><br><span class="line">          <span class="attr">presets</span>: [<span class="string">&#x27;@babel/preset-env&#x27;</span>],</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>现在再次运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<p>并打开<a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a>。你应该能在console看见”hello world”。</p>
+<h2 id="Step-4-Include-JavaScript-for-a-component"><a href="#Step-4-Include-JavaScript-for-a-component" class="headerlink" title="Step 4: Include JavaScript for a component"></a>Step 4: Include JavaScript for a component</h2><p>如今你已经成功的配置了webpack，使其能ES2015转化为JavaScript。现在让我们为其增加Material Design的涟漪效果。首先需要安装如下Node dependencies:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @material/ripple</span><br></pre></td></tr></table></figure>
+
+<p>我们需要告知<code>app.js</code>为每一个ES2015文件导入<code>@material/ripple</code>。我们也需要在DOM中初始化MDC涟漪。以如下代码覆盖原<code>app.js</code>中的代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123;MDCRipple&#125; from &#x27;@material/ripple/index&#x27;;</span><br><span class="line">const ripple = new MDCRipple(document.querySelector(&#x27;.foo-button&#x27;));</span><br></pre></td></tr></table></figure>
+
+<p>现在运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<p>再次打开<a class="link"   target="_blank" rel="noopener" href="http://localhost:8080/" >http://localhost:8080<i class="fas fa-external-link-alt"></i></a>。应该会在按钮上看到 Material Design 波纹！</p>
+<p><img src="/../images/Material%20Design%20Web%20%E5%85%A5%E9%97%A8/unnamed%20(2).png" alt="unnamed (2)"></p>
+<h2 id="Step-5-Build-Assets-for-Production"><a href="#Step-5-Build-Assets-for-Production" class="headerlink" title="Step 5: Build Assets for Production"></a>Step 5: Build Assets for Production</h2><p>到这里，我们已经用<code>webpack-dev-server</code>预览了许多实时修改的部署。</p>
+<p>然而<code>webpack-dev-server</code>并不适合实际的生产使用，下面我们将为实际的生产使用进行准备。</p>
+<p>添加另一个script到<code>package.json</code>:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">  <span class="string">&quot;build&quot;</span>: <span class="string">&quot;webpack&quot;</span>,</span><br><span class="line">  <span class="string">&quot;start&quot;</span>: <span class="string">&quot;webpack serve&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在运行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<p>这项操作会在项目目录生成<code>bundle.js</code>和<code>bundle.css</code>。这些文件包含了编译后的CSS和转译后的JavaScript。你可以直接把他们复制到<code>web server</code>中去。</p>
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Material-Design/">#Material Design</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Sass/">#Sass</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Web/">#Web</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1Material%20You%20Web%E7%BB%84%E4%BB%B6%E7%9A%84%E7%BC%96%E8%AF%91/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">记录一次material You Web组件的编译</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;评论
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: 'f2e247efde2e29a115ee',
+                clientSecret: 'd0ca35c636a29ff5be35980f7a721f3825e8427e',
+                repo: 'SoDebug.github.io',
+                owner: 'SoDebug',
+                admin: 'SoDebug',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-Webpack-with-Sacc"><span class="nav-text">Step 1: Webpack with Sacc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step2-Include-CSS-for-a-component"><span class="nav-text">Step2: Include CSS for a component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step3-Webpack-with-ES2015"><span class="nav-text">Step3: Webpack with ES2015</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E4%BF%AE%E6%94%B9entry%E4%B8%BA%E5%8C%85%E5%90%ABapp-js%E5%92%8Capp-scss%E7%9A%84%E6%95%B0%E7%BB%84"><span class="nav-text">3.1 修改entry为包含app.js和app.scss的数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E8%BE%93%E5%87%BA%E5%90%8D%E4%B8%BA%EF%BC%9Abundle-js%EF%BC%9A"><span class="nav-text">3.2 修改配置文件中的输出名为：bundle.js：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E5%B0%86babel-loader%E6%B7%BB%E5%8A%A0%E5%88%B0sass-loader-%E4%B9%8B%E5%90%8E%E7%9A%84%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84%E4%B8%AD%EF%BC%9A"><span class="nav-text">3.3 将babel-loader添加到sass-loader 之后的规则数组中：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-Include-JavaScript-for-a-component"><span class="nav-text">Step 4: Include JavaScript for a component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-5-Build-Assets-for-Production"><span class="nav-text">Step 5: Build Assets for Production</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Li Jinchuan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.0</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
