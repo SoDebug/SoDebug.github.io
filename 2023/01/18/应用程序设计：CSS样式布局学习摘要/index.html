@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="杂言碎语">
+    <meta name="author" content="Li Jinchuan">
+    
+    <title>
+        
+            Python Web 应用程序设计：Flask登录、注册后端与前端设计的实现 |
+        
+        SoDebug
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.png">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/font/css/brands.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"sodebug.github.io","root":"/","language":"zh","path":"search.json"}
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066cc","logo":"/images/logo.png","favicon":"/images/logo.png","avatar":"/images/logo.png","font_size":null,"font_family":null,"hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"header_transparent":true,"background_img":"/images/bg.svg","description":"可就是喜欢上了，不知从何而起，也没有附加的条件。","font_color":null,"hitokoto":true},"scroll":{"progress_bar":false,"percent":true}},"local_search":{"enable":true,"preload":true},"code_copy":{},"code_block":{"tools":{"enable":true,"style":"default"},"highlight_theme":"default"},"side_tools":{},"pjax":{"enable":true},"lazyload":{"enable":false},"comment":{"enable":true,"use":"gitalk","valine":{"appid":null,"appkey":null,"placeholder":null},"gitalk":{"github_id":"SoDebug","github_admins":null,"repository":"SoDebug.github.io","client_id":"f2e247efde2e29a115ee","client_secret":"d0ca35c636a29ff5be35980f7a721f3825e8427e"},"twikoo":{"env_id":null,"region":null,"version":"1.6.7"},"waline":{"server_url":null,"reaction":false,"version":2}},"post":{"author_label":{"enable":true,"auto":true,"custom_label_list":["Trainee","Engineer","Architect"]},"word_count":{"enable":true,"wordcount":true,"min2read":true},"img_align":"left","copyright_info":false},"version":"3.6.0"}
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"}
+    KEEP.language_code_block = {"copy":"Copy code","copied":"Copied","fold":"Fold code block","folded":"Folded"}
+    KEEP.language_copy_copyright = {"copy":"Copy copyright info","copied":"Copied","title":"Original article title","author":"Original article author","link":"Original article link"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <i class="pjax-progress-icon fas fa-circle-notch fa-spin"></i>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/logo.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+               SoDebug
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            <div class="article-title">
+                <span class="title-hover-animation">Python Web 应用程序设计：Flask登录、注册后端与前端设计的实现</span>
+            </div>
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.png">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">Li Jinchuan</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            
+<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        
+            <i class="fa-regular fa-calendar-plus"></i>&nbsp;
+        
+        <span class="pc">2023-01-18 13:28:57</span>
+        <span class="mobile">2023-01-18 13:28</span>
+    </span>
+    
+        <span class="article-update-date article-meta-item">
+        <i class="fas fa-file-pen"></i>&nbsp;
+        <span class="pc">2023-01-19 16:49:00</span>
+    </span>
+    
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/flask-login/">flask-login</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/flask/">flask</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/login/">login</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>2.1k Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>8 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content keep-markdown-body">
+                
+
+                <blockquote>
+<p>参考：<a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/First_steps/Getting_started" >让我们开始 CSS 的学习之旅<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<h2 id="一、html中引用style-css"><a href="#一、html中引用style-css" class="headerlink" title="一、html中引用style.css"></a>一、html中引用style.css</h2><p>为了把 <code>styles.css</code> 和 <code>index.html </code>连接起来，可以在 HTML 文档中，<code>&lt;head&gt;</code> 语句模块里面加上下面的代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;styles<span class="selector-class">.css</span>&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>该句代码主要包含以下两个要素：</p>
+<ul>
+<li><code>rel</code>属性：让浏览器知晓css文件存在，在界面渲染中遵循CSS style</li>
+<li><code>href</code>属性：指定css的文件路径</li>
+</ul>
+<h2 id="二、CSS-中如何选中html中的元素"><a href="#二、CSS-中如何选中html中的元素" class="headerlink" title="二、CSS 中如何选中html中的元素"></a>二、CSS 中如何选中html中的元素</h2><h3 id="2-1-类（class）选择器"><a href="#2-1-类（class）选择器" class="headerlink" title="2.1 类（class）选择器"></a>2.1 类（class）选择器</h3><h4 id="2-1-1-全局：class类选择器"><a href="#2-1-1-全局：class类选择器" class="headerlink" title="2.1.1 全局：class类选择器"></a>2.1.1 全局：class类选择器</h4><p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目一<span class="tag">&lt;/<span class="name">li</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;special&quot;</span>&gt;</span>项目二<span class="tag">&lt;/<span class="name">li</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目 <span class="tag">&lt;<span class="name">em</span>&gt;</span>三<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.special</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: orange;  </span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>在css 中要选中<code>class</code>属性，只需要在<code>class name</code>（示例html中class name为<code>special</code>）前加一个英文句号<code>(.)</code>。<br>示例中的css不局限于<code>&lt;li class=&quot;special&quot;&gt;项目二&lt;/li&gt;</code>,而是作用于所有名为<code>special</code>的class。</p>
+<h4 id="2-1-2-特定：-class类选择器"><a href="#2-1-2-特定：-class类选择器" class="headerlink" title="2.1.2 特定： class类选择器"></a>2.1.2 特定： class类选择器</h4><p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目一<span class="tag">&lt;/<span class="name">li</span>&gt;</span>    </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;special&quot;</span>&gt;</span>项目二<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目 <span class="tag">&lt;<span class="name">em</span>&gt;</span>三<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span><span class="selector-class">.special</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: orange;  </span><br><span class="line">  <span class="attribute">font-weight</span>: bold; </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个意思是说，“选中每个 <code>special</code> 类的 <code>li</code> 元素”。</p>
+<h3 id="2-2-根据元素在文档中的位置确定样式"><a href="#2-2-根据元素在文档中的位置确定样式" class="headerlink" title="2.2 根据元素在文档中的位置确定样式"></a>2.2 根据元素在文档中的位置确定样式</h3><blockquote>
+<p>希望某些内容根据它在文档中的位置而有所不同。</p>
+</blockquote>
+<h4 id="2-2-1-包含选择符的选择器"><a href="#2-2-1-包含选择符的选择器" class="headerlink" title="2.2.1 包含选择符的选择器"></a>2.2.1 包含选择符的选择器</h4><p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目一<span class="tag">&lt;/<span class="name">li</span>&gt;</span>    </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;special&quot;</span>&gt;</span>项目二<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span>项目 <span class="tag">&lt;<span class="name">em</span>&gt;</span>三<span class="tag">&lt;/<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> <span class="selector-tag">em</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: rebeccapurple;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该选择器将选择<code>&lt;li&gt;</code>内部的任何<code>&lt;em&gt;</code>元素（<code>&lt;li&gt;</code>的后代）</p>
+<h3 id="2-3-根据状态确定样式"><a href="#2-3-根据状态确定样式" class="headerlink" title="2.3 根据状态确定样式"></a>2.3 根据状态确定样式</h3><blockquote>
+<p>根据标签的状态确定样式。一个直观的例子就是当我们修改链接的样式时。当我们修改一个链接的样式时我们需要定位（针对） <a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/a" >&#96;&#96;<i class="fas fa-external-link-alt"></i></a> （锚）标签。取决于是否是未访问的、访问过的、被鼠标悬停的、被键盘定位的，亦或是正在被点击当中的状态，这个标签有着不同的状态。</p>
+</blockquote>
+<h4 id="2-3-1-实现链接-·访问过-未访问·-呈现不同状态"><a href="#2-3-1-实现链接-·访问过-未访问·-呈现不同状态" class="headerlink" title="2.3.1 实现链接 ·访问过|未访问· 呈现不同状态"></a>2.3.1 实现链接 ·访问过|未访问· 呈现不同状态</h4><p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:link</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>功能：<u>没有被访问</u>的链接颜色变为<u>粉色</u>、<u>访问过</u>的链接变为<u>绿色</u></p>
+<h4 id="2-3-2-实现鼠标-·悬停其上-未处于其位·-呈现不同状态"><a href="#2-3-2-实现鼠标-·悬停其上-未处于其位·-呈现不同状态" class="headerlink" title="2.3.2 实现鼠标 ·悬停其上|未处于其位· 呈现不同状态"></a>2.3.2 实现鼠标 ·悬停其上|未处于其位· 呈现不同状态</h4><p>css代码示例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、CSS排版-x2F-定位"><a href="#三、CSS排版-x2F-定位" class="headerlink" title="三、CSS排版&#x2F;定位"></a>三、CSS排版&#x2F;定位</h2><blockquote>
+<p>在 css 中实现页面布局的主要方法是设定<code>display</code>属性的值。此属性允许我们更改默认的显示方式。正常流中的所有内容都有一个<code>display</code>的值，用作元素的默认行为方式。</p>
+</blockquote>
+<h3 id="3-1-弹性盒子"><a href="#3-1-弹性盒子" class="headerlink" title="3.1 弹性盒子"></a>3.1 <a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Introduction#%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90" >弹性盒子<i class="fas fa-external-link-alt"></i></a></h3><blockquote>
+<p>Flexbox 是 CSS 弹性盒子布局模块（<a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout" >Flexible Box Layout<i class="fas fa-external-link-alt"></i></a> Module）的缩写，它被专门设计出来用于创建 <strong>横向</strong> 或是 <strong>纵向</strong> 的一维页面布局。要使用 flexbox，你只需要在想要进行 flex 布局的父元素上应用<code>display: flex</code> ，所有直接子元素都将会按照 flex 进行布局。</p>
+<p>注：正常布局流（normal flow）是指在不对页面进行任何布局控制时，浏览器默认的 HTML 布局方式。</p>
+</blockquote>
+<h4 id="3-1-1-设置display-flex"><a href="#3-1-1-设置display-flex" class="headerlink" title="3.1.1 设置display: flex"></a>3.1.1 设置display: flex</h4><p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box3&quot;</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面HTML 标记描述了一个 class 为<code>wrapper</code>的容器元素，它的内部有三个<code>&lt;div&gt;</code>元素。它们在我们的英文文档当中，会默认地作为块元素从上到下进行显示。</p>
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当把 <code>display: flex </code> 添加到它的父元素（也就是<code>class=&quot;wrapper&quot;</code>）时，这三个元素就自动按列进行排列。</p>
+<p>这是由于它们变成了*flex 项 (flex items)*，按照 flex 容器（也就是它们的父元素）的一些 flex 相关的初值进行 flex 布局：</p>
+<ul>
+<li><p>它们整整齐齐<strong>排成一行</strong>，是因为父元素上<code>flex-direction</code>的初值是<code>row</code>。</p>
+</li>
+<li><p>它们全都被拉伸至和最高的元素高度相同，是因为父元素上<code>align-items</code>属性的初值是<code>stretch</code>。</p>
+</li>
+</ul>
+<p>这就意味着所有的子元素都会被拉伸到它们的 flex 容器的高度，在这个案例里就是所有 flex 项中最高的一项。所有项目都从容器的开始位置进行排列，排列成一行后，在尾部留下一片空白。</p>
+<p>如下图：<img src="/../images/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%9ACSS%E6%A0%B7%E5%BC%8F%E5%B8%83%E5%B1%80%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/image-20230119154730224.png" alt="image-20230119154730224"></p>
+<h4 id="3-1-2-设置-flex-属性"><a href="#3-1-2-设置-flex-属性" class="headerlink" title="3.1.2 设置 flex 属性"></a>3.1.2 设置 flex 属性</h4><blockquote>
+<p>除了上述可以被应用到 flex 容器的属性以外，还有很多属性可以被应用到 flex 项 (flex items) 上面。这些属性可以改变 flex 项在 flex 布局中占用宽&#x2F;高的方式，允许它们通过伸缩来适应可用空间。</p>
+</blockquote>
+<p>一个简单的例子，我们可以在我们的所有子元素上添加<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex"><code>flex</code></a> 属性，并赋值为<code>1</code>，这会使得所有的子元素都伸展并填充容器，而不是在尾部留下空白，如果有更多空间，那么子元素们就会变得更宽，反之，他们就会变得更窄。</p>
+<p>如图：</p>
+<p><img src="/../images/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%9ACSS%E6%A0%B7%E5%BC%8F%E5%B8%83%E5%B1%80%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/image-20230119155256061.png" alt="image-20230119155256061"></p>
+<p>css示例代码:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.wrapper</span> &gt; <span class="selector-tag">div</span> &#123;</span><br><span class="line">    <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box3&quot;</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-Grid-布局"><a href="#3-2-Grid-布局" class="headerlink" title="3.2 Grid 布局"></a>3.2 <a class="link"   target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Introduction#grid_%E5%B8%83%E5%B1%80" >Grid 布局<i class="fas fa-external-link-alt"></i></a></h3><blockquote>
+<p>Flexbox 用于设计横向或纵向的布局，而 Grid 布局则被设计用于同时在两个维度上把元素按行和列排列整齐。</p>
+</blockquote>
+<h3 id="3-2-1-设置-display-grid"><a href="#3-2-1-设置-display-grid" class="headerlink" title="3.2.1 设置 display: grid"></a>3.2.1 设置 display: grid</h3><blockquote>
+<p>可以通过指定 display 的值来转到 grid 布局：<code>display: grid</code>。</p>
+</blockquote>
+<p>可以使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-template-rows"><code>grid-template-rows</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-template-columns"><code>grid-template-columns</code></a> 两个属性定义一些行和列的轨道。</p>
+<p>示例中定义了三个<code>1fr</code>的列，还有两个<code>100px</code>的行之后，无需再在子元素上指定任何规则，它们自动地排列到了创建的格子当中。</p>
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: grid;</span><br><span class="line">    <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr <span class="number">1</span>fr;</span><br><span class="line">    <span class="attribute">grid-template-rows</span>: <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">grid-gap</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>html示例代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box3&quot;</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box4&quot;</span>&gt;</span>Four<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box5&quot;</span>&gt;</span>Five<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box6&quot;</span>&gt;</span>Six<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如图：</p>
+<p><img src="/../images/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%EF%BC%9ACSS%E6%A0%B7%E5%BC%8F%E5%B8%83%E5%B1%80%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/image-20230119160023358.png" alt="image-20230119160023358"></p>
+<h4 id="3-2-3-在网格内放置元素"><a href="#3-2-3-在网格内放置元素" class="headerlink" title="3.2.3 在网格内放置元素"></a>3.2.3 在网格内放置元素</h4><blockquote>
+<p>一旦你拥有了一个 grid，你也可以显式地将元素摆放在里面，而不是依赖于浏览器进行自动排列。</p>
+</blockquote>
+<p>在下面的示例里，定义了一个和上面一样的 grid，但是这一次只有三个子元素。利用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-column"><code>grid-column</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/grid-row"><code>grid-row</code></a> 两个属性来指定每一个子元素应该从哪一行&#x2F;列开始，并在哪一行&#x2F;列结束。这就能够让子元素在多个行&#x2F;列上展开。</p>
+<p>css示例代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: grid;</span><br><span class="line">    <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr <span class="number">1</span>fr;</span><br><span class="line">    <span class="attribute">grid-template-rows</span>: <span class="number">100px</span> <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">grid-gap</span>: <span class="number">10px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box1</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: <span class="number">2</span> / <span class="number">4</span>;</span><br><span class="line">    <span class="attribute">grid-row</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box2</span> &#123;</span><br><span class="line">    <span class="attribute">grid-column</span>: <span class="number">1</span>;</span><br><span class="line">    <span class="attribute">grid-row</span>: <span class="number">1</span> / <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box3</span> &#123;</span><br><span class="line">    <span class="attribute">grid-row</span>: <span class="number">2</span>;</span><br><span class="line">    <span class="attribute">grid-column</span>: <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里以<code>box1</code>为例进行阐述：</p>
+<ul>
+<li>grid-column: 2 &#x2F; 4：box1将占据第二列~第三列（在 CSS Grid 中，&#x2F; 符号表示一个范围，而不是一个数学运算。在这种情况下，2 &#x2F; 4 表示从第二列开始，到第四列结束的范围。因此该元素将占据网格布局中的第二列和第三列。）</li>
+<li>grid-row: 1：box1将占据第一行</li>
+</ul>
+<p>html代码示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>One<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box2&quot;</span>&gt;</span>Two<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box3&quot;</span>&gt;</span>Three<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+            </div>
+
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/flask-login/">#flask-login</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/flask/">#flask</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/login/">#login</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                               rel="next"
+                               href="/2023/01/14/Material%20Design%20Web%20%E5%85%A5%E9%97%A8/"
+                            >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Material Design Web 入门</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                                <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+            
+                <div class="comment-container">
+                    
+<div class="comments-container">
+    <div id="comments-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments"></i>&nbsp;Comments
+    </div>
+    
+        
+            
+
+    <div class="gitalk-comment-container">
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css">
+        <script data-pjax src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+        <script data-pjax>
+          function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+              __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+              Gitalk && new Gitalk({
+                clientID: 'f2e247efde2e29a115ee',
+                clientSecret: 'd0ca35c636a29ff5be35980f7a721f3825e8427e',
+                repo: 'SoDebug.github.io',
+                owner: 'SoDebug',
+                admin: 'SoDebug',
+                id: __gitalk__pathname,
+                proxy: '',
+                language: 'zh'
+              }).render('gitalk-container');
+            } catch (e) {
+              window.Gitalk = null;
+            }
+          }
+
+          if ('true' === 'true') {
+            const loadGitalkTimeout = setTimeout(() => {
+              loadGitalk();
+              clearTimeout(loadGitalkTimeout);
+            }, 1000);
+          } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+          }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81html%E4%B8%AD%E5%BC%95%E7%94%A8style-css"><span class="nav-text">一、html中引用style.css</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81CSS-%E4%B8%AD%E5%A6%82%E4%BD%95%E9%80%89%E4%B8%ADhtml%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-text">二、CSS 中如何选中html中的元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%B1%BB%EF%BC%88class%EF%BC%89%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">2.1 类（class）选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-%E5%85%A8%E5%B1%80%EF%BC%9Aclass%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">2.1.1 全局：class类选择器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-%E7%89%B9%E5%AE%9A%EF%BC%9A-class%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">2.1.2 特定： class类选择器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%A0%B9%E6%8D%AE%E5%85%83%E7%B4%A0%E5%9C%A8%E6%96%87%E6%A1%A3%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE%E7%A1%AE%E5%AE%9A%E6%A0%B7%E5%BC%8F"><span class="nav-text">2.2 根据元素在文档中的位置确定样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-%E5%8C%85%E5%90%AB%E9%80%89%E6%8B%A9%E7%AC%A6%E7%9A%84%E9%80%89%E6%8B%A9%E5%99%A8"><span class="nav-text">2.2.1 包含选择符的选择器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E6%A0%B9%E6%8D%AE%E7%8A%B6%E6%80%81%E7%A1%AE%E5%AE%9A%E6%A0%B7%E5%BC%8F"><span class="nav-text">2.3 根据状态确定样式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-%E5%AE%9E%E7%8E%B0%E9%93%BE%E6%8E%A5-%C2%B7%E8%AE%BF%E9%97%AE%E8%BF%87-%E6%9C%AA%E8%AE%BF%E9%97%AE%C2%B7-%E5%91%88%E7%8E%B0%E4%B8%8D%E5%90%8C%E7%8A%B6%E6%80%81"><span class="nav-text">2.3.1 实现链接 ·访问过|未访问· 呈现不同状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-2-%E5%AE%9E%E7%8E%B0%E9%BC%A0%E6%A0%87-%C2%B7%E6%82%AC%E5%81%9C%E5%85%B6%E4%B8%8A-%E6%9C%AA%E5%A4%84%E4%BA%8E%E5%85%B6%E4%BD%8D%C2%B7-%E5%91%88%E7%8E%B0%E4%B8%8D%E5%90%8C%E7%8A%B6%E6%80%81"><span class="nav-text">2.3.2 实现鼠标 ·悬停其上|未处于其位· 呈现不同状态</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81CSS%E6%8E%92%E7%89%88-x2F-%E5%AE%9A%E4%BD%8D"><span class="nav-text">三、CSS排版&#x2F;定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E5%BC%B9%E6%80%A7%E7%9B%92%E5%AD%90"><span class="nav-text">3.1 弹性盒子</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-%E8%AE%BE%E7%BD%AEdisplay-flex"><span class="nav-text">3.1.1 设置display: flex</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-%E8%AE%BE%E7%BD%AE-flex-%E5%B1%9E%E6%80%A7"><span class="nav-text">3.1.2 设置 flex 属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Grid-%E5%B8%83%E5%B1%80"><span class="nav-text">3.2 Grid 布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E8%AE%BE%E7%BD%AE-display-grid"><span class="nav-text">3.2.1 设置 display: grid</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-%E5%9C%A8%E7%BD%91%E6%A0%BC%E5%86%85%E6%94%BE%E7%BD%AE%E5%85%83%E7%B4%A0"><span class="nav-text">3.2.3 在网格内放置元素</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            
+<footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+                <span>2023</span> -
+            
+            2023
+            
+                &nbsp;<i class="fas fa-heart icon-animate"></i>
+                &nbsp;<a href="/">Li Jinchuan</a>
+            
+        </div>
+        
+            <script async data-pjax
+                    src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                
+                
+                    Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.6.0</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="tools-item flex-center go-to-comments">
+                <i class="fas fa-comment"></i>
+                <span class="post-comments-count"></span>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/dark-light-toggle.js"></script>
+
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/code-block.js"></script>
+
+
+
+
+<div class="post-scripts pjax">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/post-helper.js"></script>
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/anime.min.js"></script>
+        
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/toc.js"></script>
+        
+    
+</div>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.6.0/source/js/libs/pjax.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
